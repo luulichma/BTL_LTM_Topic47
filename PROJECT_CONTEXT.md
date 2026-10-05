@@ -174,6 +174,8 @@ Các khái niệm cốt lõi cần nắm và trình bày được:
 
 Gán người vào vai: TBD (trưởng nhóm quyết định).
 
+Danh sách đầu việc chi tiết (mã S1–S8, C1–C8, G1–G8, T1–T6), giao thức nháp và mốc tiến độ: [`docs/T47_YTuongDemo_PhanCong.docx`](docs/T47_YTuongDemo_PhanCong.docx).
+
 Việc chung: thống nhất giao thức (#1 làm chủ), viết demo script (#3 làm chủ), tập thuyết trình. Mỗi người phải trả lời được Q&A về phần mình.
 
 ---
