@@ -55,19 +55,29 @@ Tổng thời lượng: **15–20 phút**
 
 ## 3. Nhóm thực hiện (3 người)
 
-| # | Họ và tên | MSSV | Vai trò chính |
+| # | Họ và tên | MSSV | Ghi chú |
 |---|---|---|---|
-| 1 | TBD | TBD | Server & giao thức mạng |
-| 2 | TBD | TBD | Client netcode (prediction / reconciliation / interpolation) |
-| 3 | TBD | TBD | Gameplay tương tác, lag compensation, công cụ demo |
+| 1 | Nguyễn Thế Chiến | B23DCCN095 | **Trưởng nhóm** |
+| 2 | Phạm Quang Anh | B23DCCN044 | |
+| 3 | TBD | TBD | Bổ sung sau |
 
-Chi tiết phân công ở **mục 7**.
+Ba vai trò cần chia (gán người vào vai: **TBD**):
+
+- **Vai #1:** server và giao thức mạng
+- **Vai #2:** client netcode (prediction / reconciliation / interpolation)
+- **Vai #3:** gameplay tương tác, lag compensation, công cụ demo
+
+Chi tiết từng vai ở **mục 7**.
 
 ---
 
 ## 4. Dự án tham khảo: "Game xếp đơn hàng"
 
-Nguồn: báo cáo BTL Lập trình mạng của một nhóm khác (Nhóm BTL 06, 4 thành viên, 2025).
+Nguồn: báo cáo BTL Lập trình mạng của một nhóm khác (Nhóm BTL 06, 4 thành viên, 2025). Lưu trong repo:
+
+- Bản gốc có đủ hình và sơ đồ: [`docs/reference/BaoCao_GameXepDonHang_Nhom06.docx`](docs/reference/BaoCao_GameXepDonHang_Nhom06.docx)
+- Bản trích chữ để tra cứu nhanh: [`docs/reference/BaoCao_GameXepDonHang_Nhom06.md`](docs/reference/BaoCao_GameXepDonHang_Nhom06.md)
+
 Dự án T47 của nhóm dựa trên ý tưởng này nhưng **tập trung vào netcode**.
 
 ### 4.1 Tóm tắt ý tưởng gốc
@@ -121,20 +131,21 @@ Giữ nguyên tinh thần "xếp đơn hàng siêu thị" (2 người, đối kh
 
 - **Giữ:** đăng nhập đơn giản, ghép trận ngẫu nhiên, gameplay, màn kết quả.
 - **Tuỳ chọn / bỏ:** bạn bè, kết bạn, thách đấu, lịch sử đấu. Các chức năng này không phục vụ tiêu chí chấm của T47.
-- **CSDL:** có thể thay MySQL bằng SQLite hoặc file JSON để giảm công cài đặt (TBD).
+- **CSDL:** dùng **SQLite** thay cho MySQL để nhẹ, không cần cài server CSDL.
 
-### Stack (đề xuất)
+### Stack (đã chốt)
 
-Theo dự án gốc để tận dụng tài liệu tham khảo:
+Giữ stack của dự án gốc để tận dụng tài liệu tham khảo:
 
-- Client Unity (C#)
-- Server .NET (C#)
-- TCP cho lobby / matchmaking
-- UDP cho input và snapshot
+| Thành phần | Công nghệ |
+|---|---|
+| Client | Unity (C#) |
+| Server | .NET (C#), `System.Net.Sockets` |
+| CSDL | SQLite |
+| TCP | Đăng nhập, matchmaking, sự kiện trận đấu quan trọng |
+| UDP | Input của client, snapshot trạng thái từ server |
 
 Lợi ích lớn nhất là client và server viết chung C#, nên có thể **dùng chung code mô phỏng** (shared simulation), một điều kiện quan trọng để prediction chính xác.
-
-**Ngôn ngữ / stack đã chốt:** TBD
 
 ---
 
@@ -155,11 +166,13 @@ Các khái niệm cốt lõi cần nắm và trình bày được:
 
 ## 7. Phân công 3 thành viên (đề xuất)
 
-| Thành viên | Netcode | Gameplay / khác | Slide & thuyết trình |
+| Vai | Netcode | Gameplay / khác | Slide & thuyết trình |
 |---|---|---|---|
 | **#1: Server & giao thức** | Vòng lặp tick của server, xử lý input queue, gửi snapshot, định dạng gói tin (TCP + UDP), sequence/ack | Đăng nhập, matchmaking, quản lý phòng, CSDL | Kiến trúc, authoritative server, giao thức, UDP hay TCP |
 | **#2: Client netcode** | Client-side prediction, server reconciliation, entity interpolation, shared simulation | Di chuyển nhân vật, camera, UI trận đấu | Prediction, reconciliation, interpolation |
 | **#3: Tương tác & demo** | Lag compensation (lịch sử vị trí theo tick), rollback hành động nhặt/giao đồ, bộ mô phỏng mạng | Đồ vật, yêu cầu khách, điểm, kết quả trận, overlay debug, công tắc bật/tắt | Lag compensation, rollback, **chạy live demo** |
+
+Gán người vào vai: TBD (trưởng nhóm quyết định).
 
 Việc chung: thống nhất giao thức (#1 làm chủ), viết demo script (#3 làm chủ), tập thuyết trình. Mỗi người phải trả lời được Q&A về phần mình.
 
@@ -215,8 +228,9 @@ Kịch bản demo (5–7 phút):
 
 ## 11. Việc cần làm
 
-- [ ] Điền tên + MSSV 3 thành viên, chốt phân công
-- [ ] Chốt ngôn ngữ / stack và phạm vi chức năng
+- [x] Chốt stack: Unity + .NET C#, SQLite
+- [ ] Bổ sung thành viên thứ 3, gán người vào 3 vai
+- [ ] Chốt phạm vi chức năng
 - [ ] Thiết kế giao thức (định dạng message input / snapshot / ack)
 - [ ] Cài đặt server: tick loop, authoritative movement
 - [ ] Cài đặt client: prediction, reconciliation, interpolation
