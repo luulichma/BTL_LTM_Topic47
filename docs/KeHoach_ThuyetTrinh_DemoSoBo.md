@@ -14,16 +14,21 @@
 
 ## 2. Mạch câu chuyện
 
-1. **Vấn đề:** game nhiều người chơi cần thấy phản hồi tức thì, nhưng mạng luôn có độ trễ, jitter và mất gói.
-2. **Cách ngây thơ và hậu quả:** để client tự báo vị trí thì gian lận được và đối thủ bị giật. Bản game tham khảo của Nhóm 06 là ví dụ thật.
-3. **Server authoritative:** chống gian lận được, nhưng điều khiển bị "ì".
-4. **Các kỹ thuật lấy lại cảm giác tức thì:** prediction, rồi reconciliation, rồi interpolation.
-5. **Tương tác giữa người chơi:** lag compensation và rollback, kèm cái giá về công bằng.
-6. **Nhóm sẽ áp dụng vào đâu:** game xếp đơn hàng, giới thiệu ngắn, rồi chuyển sang demo.
+Chi tiết ở [`NoiDung_ChiTiet.md`](NoiDung_ChiTiet.md). Cấu trúc: **đặt vấn đề → giải thích → các hướng giải pháp → so sánh → chọn**, áp cho từng vấn đề con. Giải pháp của vấn đề trước làm lộ ra vấn đề sau.
+
+1. **Vấn đề gốc:** game real-time cần vừa phản hồi tức thì vừa nhất quán, nhưng mạng luôn có độ trễ, jitter và mất gói.
+2. **VĐ1, ai nắm trạng thái thật:** chọn server authoritative (so với client-authoritative, lockstep). Hệ quả: điều khiển bị "ì".
+3. **VĐ2, điều khiển bị ì:** chọn prediction + reconciliation. Hệ quả: chỉ dự đoán được chính mình.
+4. **VĐ3, đối thủ giật:** chọn interpolation. Hệ quả: mình ở hiện tại, đối thủ ở quá khứ.
+5. **VĐ4, tương tác không công bằng:** chọn lag compensation. Hệ quả: kết quả đã hiển thị có thể bị server bác.
+6. **VĐ5, dự đoán hành động sai:** chọn rollback cục bộ.
+7. **Giải pháp lựa chọn và demo:** kiến trúc tổng hợp, bối cảnh game xếp đơn hàng siêu thị, rồi chuyển sang demo.
 
 ---
 
 ## 3. Dàn ý slide (~13 slide, 10–12 phút)
+
+Nội dung chi tiết (nguồn gốc của slide): [`NoiDung_ChiTiet.md`](NoiDung_ChiTiet.md). Nội dung sơ bộ từng slide: [`NoiDung_Slide_SoBo.md`](NoiDung_Slide_SoBo.md).
 
 | # | Slide | Nội dung / hình nên có | Người | Thời gian |
 |---|---|---|---|---|
@@ -54,7 +59,8 @@
 - 2 ô vuông màu trên một mặt phẳng, chỉ có di chuyển bằng WASD (người A) và phím mũi tên (người B).
 - Màn hình chia **3 khung**: Client A, Server, Client B. Khung server hiển thị "sự thật"; hai khung client hiển thị những gì mỗi người nhìn thấy.
 - **Mạng giả lập trong cùng tiến trình:** gói tin được đưa vào hàng đợi và trả ra sau khoảng latency đã chỉnh, có jitter và loss. Chỉnh được bằng thanh trượt.
-- Công tắc: Prediction, Reconciliation, Interpolation. Overlay: số input chờ ack, tick server.
+- Công tắc: chế độ client-authoritative / server authoritative (kèm nút "teleport" giả lập gói tin bị sửa), Prediction, Reconciliation, Interpolation. Overlay: số input chờ ack, tick server, interpDelay.
+- `interpDelay` tự tính theo `2 × chu kỳ snapshot + jitter`.
 - Server tick 30 Hz, gửi snapshot ở tần số chỉnh được (đặt thấp, ví dụ 10 Hz, để thấy rõ giật khi chưa bật interpolation).
 
 **Vì sao chọn mạng giả lập thay cho socket thật ở buổi này:** làm nhanh (khoảng 1 tuần), không phụ thuộc mạng phòng học, và đặt được 3 góc nhìn cạnh nhau nên dễ giải thích. Nên viết lớp truyền tin dưới dạng interface `ITransport` để bản cuối chỉ cần thay bằng UDP thật. Code mô phỏng và logic prediction/reconciliation dùng lại nguyên vẹn.
@@ -65,11 +71,12 @@ Công nghệ: một scene Unity (đúng stack đã chốt). Code `Simulation.Ste
 
 | # | Cấu hình | Thao tác | Khán giả thấy | Ứng với slide |
 |---|---|---|---|---|
-| 1 | Latency 200 ms, tắt hết | A chạy qua lại | Bấm phím xong khoảng 200 ms mới thấy chạy, rất "ì" | 5 |
+| 0 | Client-authoritative, latency 100 ms | Bấm "teleport" | Ô của A nhảy tới bất kỳ đâu, server và B chấp nhận | 4 |
+| 1 | Server authoritative, latency 200 ms, tắt hết | A chạy qua lại; bấm lại "teleport" | Teleport hết tác dụng, nhưng bấm phím xong khoảng 200 ms mới thấy chạy | 5 |
 | 2 | + Prediction | Chạy rồi dừng đột ngột | Phản hồi tức thì, nhưng bị kéo giật lùi | 6, 7 |
 | 3 | + Reconciliation | Lặp lại | Mượt và khớp vị trí server. Số input chờ ≈ RTT/tick | 8 |
 | 4 | Nhìn khung client B; snapshot 10 Hz, jitter 50 ms | A chạy vòng tròn | Ô của A trong mắt B giật từng nấc | 9 |
-| 5 | + Interpolation | Lặp lại | Mượt, nhưng trễ hơn vị trí trong khung server khoảng 100 ms (đánh đổi) | 9 |
+| 5 | + Interpolation (interpDelay ≈ 250 ms) | Lặp lại; rồi tăng snapshot lên 20 Hz | Mượt, nhưng trễ so với khung server; lên 20 Hz thì delay còn ≈ 150 ms (đánh đổi) | 9 |
 
 Lag compensation và rollback **không demo ở buổi này**. Hai kỹ thuật này giải thích bằng slide 10–11, kèm hình timeline hoặc animation.
 

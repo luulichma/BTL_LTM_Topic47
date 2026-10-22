@@ -10,7 +10,7 @@
 
 | Mục | Nội dung |
 |---|---|
-| Giảng viên | Hung Dang Ngoc |
+| Giảng viên | Đặng Ngọc Hùng |
 | Email | [hungdn@ptit.edu.vn](mailto:hungdn@ptit.edu.vn) |
 | Nộp bài | Slides + demo script, nộp qua **db.ptit.edu.vn** |
 
