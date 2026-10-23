@@ -1,0 +1,12 @@
+{
+  "name": "t47-slides",
+  "private": true,
+  "description": "Generates the T47 presentation skeleton (T47_ThuyetTrinh_Khung.pptx)",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "dependencies": {
+    "jszip": "3.10.2",
+    "pptxgenjs": "4.0.1"
+  }
+}
