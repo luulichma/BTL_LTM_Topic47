@@ -1,7 +1,7 @@
 # T47 — Nội dung thuyết trình
 
-> Bám theo slide [`slides/T47_ThuyetTrinh_Khung_New.pptx`](../slides/T47_ThuyetTrinh_Khung_New.pptx): **4 phần, 18 slide trình bày + 13 slide dự phòng**. Số slide trong file này trùng với số trang trên slide.
-> Quỹ thời gian: **phần kỹ thuật ~11 phút** (kể cả 3 slide chuyển phần, mỗi slide ~5 giây), demo 5 phút, Q&A 3–5 phút.
+> Bám theo slide [`slides/T47_ThuyetTrinh_Khung_New.pptx`](../slides/T47_ThuyetTrinh_Khung_New.pptx): **4 phần, 20 slide trình bày + 12 slide dự phòng**. Số slide trong file này trùng với số trang trên slide.
+> Quỹ thời gian: **phần kỹ thuật ~12,5 phút** (kể cả 3 slide chuyển phần, mỗi slide ~5 giây), demo 5 phút, Q&A 3–5 phút.
 > Nội dung gốc, đầy đủ hơn: [`NoiDung_ChiTiet.md`](NoiDung_ChiTiet.md).
 >
 > Mỗi slide gồm:
@@ -22,22 +22,26 @@
 | **3** | **Phần 1 — Vấn đề gốc: bài toán đường truyền mạng** | #1 | ~5" | |
 | 4 | a. Bài toán: chơi game thời gian thực qua mạng | #1 | 0,5' | 1' |
 | 5 | b. Hai yêu cầu mâu thuẫn | #1 | 0,5' | 1,5' |
-| 6 | c. Mạng không hoàn hảo (+ chia 5 vấn đề con) | #1 | 1' | 2,5' |
-| **7** | **Phần 2 — Các vấn đề con và giải pháp** | #1 | ~5" | |
-| 8 | VĐ1: Ai giữ quyền quyết định trạng thái? | #1 | 0,75' | 3,25' |
-| 9 | VĐ1: Server quyết định, nhịp cố định, kênh truyền | #1 | 0,75' | 4' |
-| 10 | VĐ2: Điều khiển bị ì → dự đoán phía client | #2 | 1,25' | 5,25' |
-| 11 | VĐ2: Đối chiếu với server | #2 | 1,25' | 6,5' |
-| 12 | VĐ3: Đối thủ hiển thị giật → nội suy thực thể | #2 | 1,5' | 8' |
-| 13 | VĐ4: Tương tác không công bằng → bù trễ | #3 | 1,5' | 9,5' |
-| 14 | VĐ5: Dự đoán hành động bị sai → quay lui | #3 | 0,75' | 10,25' |
-| **15** | **Phần 3 — Áp dụng và demo** | #3 | ~5" | |
-| 16 | Game xếp đơn hàng siêu thị → demo | #3 | 0,5' | 10,75' |
-| 17 | Demo: bản chứng minh ý tưởng, phần di chuyển | #3 (+#2 điều khiển client B) | 5' | ~16' |
-| **18** | **Phần 4 — Q&A** | Cả nhóm | 3–5' | 19–21' |
-| 19–31 | Phụ lục: slide dự phòng (không trình bày) | | | |
+| 6 | c. Mạng không hoàn hảo: độ trễ, dao động độ trễ, mất gói | #1 | 1' | 2,5' |
+| 7 | d. TCP hay UDP? (+ chia 5 vấn đề con) | #1 | 0,75' | 3,25' |
+| **8** | **Phần 2 — Các vấn đề con và giải pháp** | #1 | ~5" | |
+| 9 | VĐ1: Ai giữ quyền quyết định trạng thái? | #1 | 0,75' | 4' |
+| 10 | VĐ1: Server quyết định, nhịp cố định, kênh truyền | #1 | 0,75' | 4,75' |
+| 11 | VĐ2: Điều khiển bị ì → dự đoán phía client | #2 | 1,25' | 6' |
+| 12 | VĐ2: Đối chiếu với server | #2 | 1,25' | 7,25' |
+| 13 | VĐ3: Đối thủ hiển thị giật → nội suy thực thể | #2 | 1,5' | 8,75' |
+| 14 | VĐ4: Tương tác không công bằng → bù trễ | #3 | 1,5' | 10,25' |
+| 15 | VĐ5: Dự đoán hành động bị sai → quay lui | #3 | 0,75' | 11' |
+| 16 | Tổng kết phần 2: năm vấn đề, năm đánh đổi → dẫn sang phần 3 | #3 | 0,5' | 11,5' |
+| **17** | **Phần 3 — Áp dụng và demo** | #3 | ~5" | |
+| 18 | Game xếp đơn hàng siêu thị → demo | #3 | 0,5' | 12' |
+| 19 | Demo: bản chứng minh ý tưởng, phần di chuyển | #3 (+#2 điều khiển client B) | 5' | ~17' |
+| **20** | **Phần 4 — Q&A** | Cả nhóm | 3–5' | 20–22' |
+| 21–32 | Phụ lục: slide dự phòng (không trình bày) | | | |
 
-Chuyển người nói ở cuối slide 9 (#1 → #2) và cuối slide 12 (#2 → #3).
+> **Lưu ý thời lượng:** tổng 20–22 phút, vượt khung 15–20 phút nếu Q&A kéo dài. Khi tập, cần rút khoảng 1–2 phút (gợi ý: slide 11–14 mỗi slide bớt 0,25').
+
+Chuyển người nói ở cuối slide 10 (#1 → #2) và cuối slide 13 (#2 → #3).
 
 ---
 
@@ -66,8 +70,8 @@ Chuyển người nói ở cuối slide 9 (#1 → #2) và cuối slide 12 (#2 �
 
 | Phần | Mục nhỏ | Người |
 |---|---|---|
-| 01 · Vấn đề gốc: bài toán đường truyền mạng | a. Bài toán · b. Hai yêu cầu mâu thuẫn · c. Mạng không hoàn hảo | #1 |
-| 02 · Các vấn đề con và giải pháp | a. VĐ1 Ai giữ quyền quyết định · b. VĐ2 Điều khiển bị ì · c. VĐ3 Đối thủ giật · d. VĐ4 Không công bằng · e. VĐ5 Dự đoán hành động sai | #1, #2, #3 |
+| 01 · Vấn đề gốc: bài toán đường truyền mạng | a. Bài toán · b. Hai yêu cầu mâu thuẫn · c. Mạng không hoàn hảo · d. TCP hay UDP? | #1 |
+| 02 · Các vấn đề con và giải pháp | a. VĐ1 Ai giữ quyền quyết định · b. VĐ2 Điều khiển bị ì · c. VĐ3 Đối thủ giật · d. VĐ4 Không công bằng · e. VĐ5 Dự đoán hành động sai · f. Tổng kết phần 2 | #1, #2, #3 |
 | 03 · Áp dụng và demo | a. Game xếp đơn hàng siêu thị · b. Demo 3 khung nhìn | #3, #2 |
 | 04 · Q&A | a. Hỏi & đáp · b. Slide dự phòng khi bị hỏi sâu | Cả nhóm |
 
@@ -85,7 +89,8 @@ Chuyển người nói ở cuối slide 9 (#1 → #2) và cuối slide 12 (#2 �
 
 - **PHẦN 1** · Vấn đề gốc: bài toán đường truyền mạng
 - Mạng luôn có độ trễ, dao động độ trễ và mất gói
-- Bài toán · Hai yêu cầu mâu thuẫn · Mạng không hoàn hảo · Trình bày: #1
+- Bài toán · Hai yêu cầu mâu thuẫn · Mạng không hoàn hảo · TCP hay UDP?
+- Trình bày: #1
 
 **Lời nói**
 
@@ -131,43 +136,73 @@ Chuyển người nói ở cuối slide 9 (#1 → #2) và cuối slide 12 (#2 �
 
 ### Slide 6 — c. Mạng không hoàn hảo (#1, 1')
 
-**Trên slide**
+**Trên slide:** 3 thẻ, mỗi thẻ có một con số lớn, định nghĩa ("Là gì") và ví dụ.
 
-- **Độ trễ:** không thể về 0 (VN → Singapore: 30–60 ms)
-- **Dao động độ trễ:** gửi đều 50 ms, nhận cách nhau 30, 80, 45 ms…
-- **Mất gói, sai thứ tự:** Wi-Fi / 4G mất 0,5–2% *(cần đo lại)*
-- **TCP:** mất 1 gói thì chặn mọi gói sau (**nghẽn đầu hàng**)
-- **UDP:** không chặn, nhưng không đảm bảo gì
-- Chia thành 5 vấn đề con: **VĐ1** Ai quyết định → **VĐ2** Điều khiển ì → **VĐ3** Đối thủ giật → **VĐ4** Không công bằng → **VĐ5** Dự đoán sai. Giải pháp của vấn đề trước **làm lộ ra** vấn đề sau
+| Hiện tượng | Con số | Là gì | Ví dụ |
+|---|---|---|---|
+| **Độ trễ** (latency) | **30–60 ms**, ping Hà Nội → server Singapore | Thời gian một gói tin đi từ máy này tới máy kia. Ping = thời gian đi + về | Bấm D, gói tin mất ~25 ms mới tới server, ảnh trạng thái mới lại mất ~25 ms để về. Màn 60 khung hình/giây vẽ 1 khung mỗi 16,7 ms, nên ping 50 ms là nhân vật trễ ~3 khung hình |
+| **Dao động độ trễ** (jitter) | **30 · 80 · 45 ms**, khoảng cách giữa các gói nhận được | Độ trễ mỗi gói một khác, nên gửi đều mà nhận không đều | Server gửi vị trí đối thủ đều 50 ms một lần. Nếu vẽ ngay khi nhận, đối thủ lúc lao nhanh, lúc khựng lại. Giống xe buýt xuất bến đều 10 phút, nhưng tới trạm lúc 5 phút, lúc 15 phút |
+| **Mất gói, sai thứ tự** (packet loss) | **0,5–2%** *(cần đo lại)*, tỉ lệ mất gói qua Wi-Fi / 4G | Gói không tới nơi, hoặc gói gửi sau lại tới trước | Gửi 30 gói/giây, mất 1% là cứ ~3 giây mất 1 gói vị trí. Gói "x = 6" tới trước gói "x = 5" thì nhân vật bị kéo lùi |
+
 - Câu chốt: *Không thể loại bỏ, chỉ có thể che giấu*
 
-**Hình:** hai dòng thời gian TCP và UDP cùng gửi gói 1–4, gói 2 bị mất. TCP: gói 3, 4 chờ gói 2 gửi lại, ứng dụng nhận 1, 2, 3, 4. UDP: ứng dụng nhận ngay 1, 3, 4.
+**Hình:** không có hình riêng; ba thẻ là phần hình của slide.
 
 **Lời nói**
 
-> Vấn đề gốc nằm ở mạng. Thứ nhất là độ trễ: nó có giới hạn vật lý nên không bao giờ về 0; từ Việt Nam sang Singapore đo thực tế khoảng 30 đến 60 mili giây. Thứ hai, độ trễ không đều: gói gửi đều đặn nhưng đến lúc nhanh lúc chậm, gọi là dao động độ trễ. Thứ ba, gói có thể mất hoặc đến sai thứ tự.
+> Vấn đề gốc nằm ở mạng, cụ thể là ba hiện tượng.
 >
-> Hai giao thức xử lý chuyện này khác nhau. TCP đảm bảo thứ tự, nên khi mất một gói nó giữ lại mọi gói phía sau để chờ gửi lại; hiện tượng này gọi là nghẽn đầu hàng. UDP thì gói nào mất là mất, các gói sau vẫn đến bình thường.
+> Thứ nhất là độ trễ: thời gian một gói tin đi từ máy này tới máy kia. Con số hay gặp là ping, tức thời gian đi và về. Ví dụ ở Hà Nội chơi trên server Singapore thì ping khoảng 30 đến 60 mili giây. Con số đó có ý nghĩa gì? Màn hình 60 khung hình một giây thì cứ 16,7 mili giây vẽ một khung, nên ping 50 mili giây nghĩa là nhân vật phản ứng chậm khoảng 3 khung hình. Độ trễ không bao giờ về 0 vì tín hiệu đi trong cáp quang cũng cần thời gian.
 >
-> Những hiện tượng này không thể loại bỏ, chỉ có thể che giấu. Nhóm em chia bài toán thành 5 vấn đề con nối thành chuỗi: giải quyết vấn đề trước thì lộ ra vấn đề sau. Với mỗi vấn đề, nhóm em so sánh vài hướng theo hai tiêu chí chính là độ phản hồi và tính nhất quán, rồi chọn.
+> Thứ hai là dao động độ trễ: mỗi gói đi mất một khoảng thời gian khác nhau. Server gửi vị trí đối thủ đều đặn 50 mili giây một lần, nhưng máy mình nhận cách nhau 30, rồi 80, rồi 45. Nếu cứ nhận gói nào vẽ gói đó thì đối thủ lúc lao nhanh, lúc khựng lại. Giống xe buýt xuất bến đều 10 phút một chuyến nhưng tới trạm thì lúc 5 phút, lúc 15 phút.
+>
+> Thứ ba là mất gói và sai thứ tự. Qua Wi-Fi hay 4G thường mất khoảng 0,5 đến 2 phần trăm. Nghe thì ít, nhưng game gửi 30 gói một giây, mất 1 phần trăm là cứ khoảng 3 giây mất một gói vị trí. Còn nếu gói gửi sau lại tới trước, ví dụ gói "x bằng 6" tới trước gói "x bằng 5", thì nhân vật bị kéo lùi.
+>
+> Những hiện tượng này không thể loại bỏ, chỉ có thể che giấu.
 
 **Ghi chú**
 
 - **Việc cần làm:** thay số liệu mất gói *(cần đo lại)* bằng số đo thật trước buổi trình bày.
 - Bị hỏi phép tính giới hạn vật lý: Hà Nội – Singapore ≈ 2.200 km, cáp quang ≈ 200.000 km/s → RTT tối thiểu ≈ 22 ms (slide dự phòng D1).
-- Muốn giải thích lại mạch 5 vấn đề con và tiêu chí chọn giải pháp: mở slide dự phòng 20.
+
+---
+
+### Slide 7 — d. TCP hay UDP? (#1, 0,75')
+
+**Trên slide**
+
+- **TCP:** đảm bảo mọi gói tới **đủ** và **đúng thứ tự**. Mất gói 2 thì gói 3, 4 đã tới vẫn bị giữ lại, chờ gói 2 được gửi lại (thêm ít nhất 1 ping). Hiện tượng này gọi là **nghẽn đầu hàng** (head-of-line blocking): đối thủ đứng hình rồi nhảy vọt
+- **UDP:** gửi rồi thôi, không gửi lại, không sắp thứ tự. Gói 3, 4 tới là dùng ngay; gói 2 mất thì bỏ qua. Với vị trí nhân vật, gói cũ đã lỗi thời vì gói sau mang vị trí mới hơn, nên mất 1 gói gần như không ai thấy
+- Chia thành 5 vấn đề con: **VĐ1** Ai quyết định → **VĐ2** Điều khiển ì → **VĐ3** Đối thủ giật → **VĐ4** Không công bằng → **VĐ5** Dự đoán sai. Giải pháp của vấn đề trước **làm lộ ra** vấn đề sau
+
+**Hình:** hai dòng thời gian TCP và UDP cùng gửi gói 1–4, gói 2 bị mất. TCP: gói 3, 4 chờ gói 2 gửi lại, ứng dụng nhận 1, 2, 3, 4. UDP: ứng dụng nhận ngay 1, 3, 4.
+
+**Lời nói**
+
+> Với ba hiện tượng đó, chọn giao thức nào? Hai giao thức xử lý chuyện mất gói rất khác nhau.
+>
+> TCP đảm bảo mọi gói tới đủ và đúng thứ tự. Nhìn hình bên phải: gói 2 bị mất, gói 3 và 4 đã tới nơi nhưng TCP vẫn giữ lại, chưa giao cho game, chờ gói 2 được gửi lại, mất thêm ít nhất một lần ping. Hiện tượng này gọi là nghẽn đầu hàng. Trong game, người chơi thấy đối thủ đứng hình một lúc rồi nhảy vọt.
+>
+> UDP thì gửi rồi thôi: không gửi lại, không sắp thứ tự. Gói 3 và 4 tới là dùng ngay, gói 2 mất thì bỏ qua. Với vị trí nhân vật thì điều này lại hợp lý, vì gói sau đã mang vị trí mới hơn, gói cũ có tới cũng không cần nữa. Nhóm em dùng UDP cho lệnh điều khiển và ảnh trạng thái, còn TCP cho những việc không được mất như đăng nhập và ghép trận.
+>
+> Mạng không hoàn hảo thì chỉ có thể che giấu. Nhóm em chia bài toán thành 5 vấn đề con nối thành chuỗi: giải quyết vấn đề trước thì lộ ra vấn đề sau. Với mỗi vấn đề, nhóm em so sánh vài hướng theo hai tiêu chí chính là độ phản hồi và tính nhất quán, rồi chọn.
+
+**Ghi chú**
+
+- Bị hỏi vì sao không dùng TCP cho tất cả, tắt Nagle là xong: mở D2.
+- Muốn giải thích lại mạch 5 vấn đề con và tiêu chí chọn giải pháp: mở slide dự phòng 22.
 
 ---
 
 ## Phần 2 — Các vấn đề con và giải pháp (#1 → #2 → #3)
 
-### Slide 7 — Chuyển phần 2 (~5")
+### Slide 8 — Chuyển phần 2 (~5")
 
 **Trên slide**
 
 - **PHẦN 2** · Các vấn đề con và giải pháp
 - Giải pháp của vấn đề trước làm lộ ra vấn đề sau
-- a. VĐ1 Ai giữ quyền quyết định · b. VĐ2 Điều khiển bị ì · c. VĐ3 Đối thủ giật · d. VĐ4 Không công bằng · e. VĐ5 Dự đoán hành động sai
+- a. VĐ1 Ai giữ quyền quyết định · b. VĐ2 Điều khiển bị ì · c. VĐ3 Đối thủ giật · d. VĐ4 Không công bằng · e. VĐ5 Dự đoán hành động sai · f. Tổng kết phần 2
 
 **Lời nói**
 
@@ -175,7 +210,7 @@ Chuyển người nói ở cuối slide 9 (#1 → #2) và cuối slide 12 (#2 �
 
 ---
 
-### Slide 8 — VĐ1: Ai giữ quyền quyết định trạng thái? (#1, 0,75')
+### Slide 9 — VĐ1: Ai giữ quyền quyết định trạng thái? (#1, 0,75')
 
 **Trên slide**
 
@@ -199,7 +234,7 @@ Chuyển người nói ở cuối slide 9 (#1 → #2) và cuối slide 12 (#2 �
 
 ---
 
-### Slide 9 — VĐ1: Server quyết định, nhịp cố định, kênh truyền (#1, 0,75')
+### Slide 10 — VĐ1: Server quyết định, nhịp cố định, kênh truyền (#1, 0,75')
 
 **Trên slide**
 
@@ -224,7 +259,7 @@ Chuyển người nói ở cuối slide 9 (#1 → #2) và cuối slide 12 (#2 �
 
 ---
 
-### Slide 10 — VĐ2: Điều khiển bị ì → dự đoán phía client (#2, 1,25')
+### Slide 11 — VĐ2: Điều khiển bị ì → dự đoán phía client (#2, 1,25')
 
 **Trên slide**
 
@@ -246,7 +281,7 @@ Chuyển người nói ở cuối slide 9 (#1 → #2) và cuối slide 12 (#2 �
 
 ---
 
-### Slide 11 — VĐ2: Đối chiếu với server (#2, 1,25')
+### Slide 12 — VĐ2: Đối chiếu với server (#2, 1,25')
 
 **Trên slide**
 
@@ -274,7 +309,7 @@ for (const i of pending) state = Simulation.step(state, i.keys, DT);
 
 ---
 
-### Slide 12 — VĐ3: Đối thủ hiển thị giật → nội suy thực thể (#2, 1,5')
+### Slide 13 — VĐ3: Đối thủ hiển thị giật → nội suy thực thể (#2, 1,5')
 
 **Trên slide**
 
@@ -298,7 +333,7 @@ for (const i of pending) state = Simulation.step(state, i.keys, DT);
 
 ---
 
-### Slide 13 — VĐ4: Tương tác không công bằng → bù trễ (#3, 1,5')
+### Slide 14 — VĐ4: Tương tác không công bằng → bù trễ (#3, 1,5')
 
 **Trên slide**
 
@@ -324,7 +359,7 @@ for (const i of pending) state = Simulation.step(state, i.keys, DT);
 
 ---
 
-### Slide 14 — VĐ5: Dự đoán hành động bị sai → quay lui (#3, 0,75')
+### Slide 15 — VĐ5: Dự đoán hành động bị sai → quay lui (#3, 0,75')
 
 **Trên slide**
 
@@ -345,9 +380,38 @@ for (const i of pending) state = Simulation.step(state, i.keys, DT);
 
 ---
 
+### Slide 16 — Tổng kết phần 2: năm vấn đề, năm đánh đổi (#3, 0,5')
+
+**Trên slide**
+
+| Vấn đề | Giải pháp | Đánh đổi |
+|---|---|---|
+| **VĐ1** Ai quyết định | Server quyết định | Trễ 1 RTT |
+| **VĐ2** Điều khiển ì | Dự đoán + đối chiếu | Cần mô phỏng chung |
+| **VĐ3** Đối thủ giật | Nội suy | Thấy đối thủ ở quá khứ |
+| **VĐ4** Tranh chấp không công bằng | Bù trễ | "Chạy rồi vẫn bị bắt" |
+| **VĐ5** Dự đoán sai | Quay lui | Thỉnh thoảng thấy hành động bị huỷ |
+
+- **Kết luận:** không kỹ thuật nào xoá được độ trễ, chỉ chuyển nó sang chỗ ít bị để ý hơn. Mỗi giải pháp đều phải trả bằng một đánh đổi.
+- **→ Phần 3:** kiểm chứng cả 5 kỹ thuật trên một game có đủ hai tình huống: **di chuyển liên tục** (VĐ1–VĐ3) và **tranh chấp một món hàng** (VĐ4–VĐ5).
+
+**Hình:** bảng 5 dòng ở trên; khối nền tối ở dưới chứa kết luận và câu dẫn sang phần 3.
+
+**Lời nói**
+
+> Tổng kết phần hai: năm vấn đề con, năm giải pháp, và giải pháp nào cũng có cái giá. Server quyết định thì chống được gian lận nhưng phải chờ một vòng mạng. Dự đoán và đối chiếu làm điều khiển mượt, nhưng client và server phải dùng chung code mô phỏng. Nội suy làm đối thủ mượt, đổi lại mình thấy đối thủ ở quá khứ. Bù trễ phân xử theo góc nhìn của người bấm, đổi lại có lúc đã chạy đi rồi vẫn bị bắt. Quay lui sửa được dự đoán sai, đổi lại thỉnh thoảng thấy hành động bị huỷ.
+>
+> Kết luận: không kỹ thuật nào xoá được độ trễ, chỉ chuyển nó sang chỗ người chơi ít để ý hơn. Mình đi trước nhờ dự đoán, đối thủ đi sau nhờ nội suy, và server bù lại sự lệch thời gian khi hai bên tương tác.
+>
+> Các kỹ thuật này phải thấy chạy thì mới thuyết phục. Muốn kiểm chứng cả năm, cần một game có đủ hai tình huống: di chuyển liên tục, ứng với VĐ1 đến VĐ3, và tranh chấp một món hàng, ứng với VĐ4 và VĐ5. Đó là phần ba: game xếp đơn hàng siêu thị và demo.
+
+**Ghi chú:** bị hỏi chi tiết từng đánh đổi thì quay lại slide của vấn đề đó (VĐ1: 9–10 · VĐ2: 11–12 · VĐ3: 13 · VĐ4: 14 · VĐ5: 15).
+
+---
+
 ## Phần 3 — Áp dụng và demo (#3, #2)
 
-### Slide 15 — Chuyển phần 3 (~5")
+### Slide 17 — Chuyển phần 3 (~5")
 
 **Trên slide**
 
@@ -361,14 +425,13 @@ for (const i of pending) state = Simulation.step(state, i.keys, DT);
 
 ---
 
-### Slide 16 — Game xếp đơn hàng siêu thị → demo (#3, 0,5')
+### Slide 18 — Game xếp đơn hàng siêu thị → demo (#3, 0,5')
 
 **Trên slide**
 
 - Game 2 người, mỗi người là nhân viên siêu thị: **WASD** di chuyển, **J** nhặt / giao, **K** thả
 - **Món hàng hiếm** chỉ có 1 cái ở kệ giữa → tranh chấp → bù trễ + quay lui
 - Bản cuối: Unity (C#) + .NET server · TCP + UDP · SQLite
-- *Không kỹ thuật nào xoá được độ trễ, chỉ chuyển nó sang chỗ ít bị để ý hơn*
 - **Demo hôm nay:** server Node.js thật + trình duyệt qua WebSocket, mạng xấu giả lập, 3 khung nhìn
 
 **Hình:** "Phác thảo siêu thị". Quầy A và quầy B ở hai góc trên, các kệ trái cây, rau củ, thịt cá, đồ uống, đồ khô, sữa và trứng; ở giữa là kệ "Món hàng hiếm · 1 cái" phát sáng, hai đường nét đứt từ A và B cùng chạy tới.
@@ -377,18 +440,16 @@ for (const i of pending) state = Simulation.step(state, i.keys, DT);
 
 > Nhóm em sẽ áp dụng các kỹ thuật này vào game xếp đơn hàng siêu thị cho 2 người. Game có di chuyển liên tục, nên cần dự đoán và nội suy. Món hàng hiếm chỉ có một cái, hai người phải tranh nhau, nên cần bù trễ và quay lui.
 >
-> Tóm lại, không kỹ thuật nào xoá được độ trễ, chỉ chuyển nó sang chỗ ít bị để ý hơn: mình đi trước nhờ dự đoán, đối thủ đi sau nhờ nội suy, và server bù lại sự lệch thời gian khi hai bên tương tác.
->
 > Hôm nay nhóm em demo bản chứng minh ý tưởng cho phần di chuyển: server Node.js thật, trình duyệt kết nối qua WebSocket, còn mạng xấu được giả lập để thấy rõ hiệu ứng.
 
 **Ghi chú**
 
 - Bị hỏi vì sao demo dùng JavaScript mà bản cuối dùng C#: demo cần làm nhanh và chạy ngay trên trình duyệt. Kỹ thuật netcode không phụ thuộc ngôn ngữ, và ý tưởng dùng chung code mô phỏng vẫn giữ nguyên (`simulation.js` ↔ `Simulation.Step`).
-- Bảng tổng kết "năm vấn đề, năm đánh đổi" đã chuyển xuống slide dự phòng 21; câu chốt nằm ở slide này.
+- Bảng tổng kết "năm vấn đề, năm đánh đổi" và câu chốt nằm ở slide 16, ngay trước phần này.
 
 ---
 
-### Slide 17 — Demo: bản chứng minh ý tưởng, phần di chuyển (#3 dẫn, #2 điều khiển client B; 5')
+### Slide 19 — Demo: bản chứng minh ý tưởng, phần di chuyển (#3 dẫn, #2 điều khiển client B; 5')
 
 **Trên slide**
 
@@ -413,7 +474,7 @@ for (const i of pending) state = Simulation.step(state, i.keys, DT);
 
 ## Phần 4 — Q&A (cả nhóm)
 
-### Slide 18 — Cảm ơn và hỏi đáp (3–5')
+### Slide 20 — Cảm ơn và hỏi đáp (3–5')
 
 **Trên slide**
 
@@ -427,44 +488,33 @@ for (const i of pending) state = Simulation.step(state, i.keys, DT);
 
 ## Phụ lục — Slide dự phòng cho Q&A (không trình bày)
 
-Slide 19 là slide mở đầu phụ lục ("PHỤ LỤC · Slide dự phòng cho Q&A · Chỉ mở khi bị hỏi"). Slide 22–31 (D1–D10) hiện là khung: điền nội dung từ [`NoiDung_ChiTiet.md`](NoiDung_ChiTiet.md) theo mục ghi trên từng slide.
+Slide 21 là slide mở đầu phụ lục ("PHỤ LỤC · Slide dự phòng cho Q&A · Chỉ mở khi bị hỏi"). Slide 23–32 (D1–D10) hiện là khung: điền nội dung từ [`NoiDung_ChiTiet.md`](NoiDung_ChiTiet.md) theo mục ghi trên từng slide.
 
 | Slide | Nội dung | Mở khi bị hỏi | Nguồn |
 |---|---|---|---|
-| 20 | Chuỗi 5 vấn đề con: VĐ1 → VĐ5, hệ quả trên mỗi mũi tên ("phải chờ server", "chỉ đoán được mình", "đối thủ ở quá khứ", "server có thể quyết khác"); 5 tiêu chí chọn giải pháp (phản hồi, nhất quán — ưu tiên; chịu mạng xấu, độ phức tạp, phù hợp loại game) | Cần giải thích lại mạch 5 vấn đề con hoặc tiêu chí chọn | Ý chính đã gộp vào slide 6 |
-| 21 | Tổng kết: bảng vấn đề · giải pháp · đánh đổi (bảng dưới) | Thầy hỏi tóm tắt các đánh đổi | Câu chốt đã chuyển lên slide 16 |
-| 22 · D1 | Thành phần của độ trễ: lan truyền, truyền, xếp hàng, xử lý | "Độ trễ đến từ đâu, giảm được không?" | Mục 2.1 |
-| 23 · D2 | TCP chi tiết: thời gian chờ gửi lại, thuật toán Nagle | "Sao không dùng TCP cho tất cả, tắt Nagle là xong?" | Mục 2.3 |
-| 24 · D3 | Bộ tích luỹ thời gian; tần số mô phỏng và tần số gửi ảnh | "Chọn 30 nhịp/giây thế nào? Client 144 Hz thì sao?" | VĐ1 |
-| 25 · D4 | Hàng đợi lệnh ở server: thiếu lệnh, dồn lệnh, chống hack tốc độ | "Lệnh đến không đều thì server làm gì?" | VĐ1 |
-| 26 · D5 | Bảng giao thức: `INPUT`, `SNAPSHOT`, `ITEM_*` | "Định dạng gói tin thế nào?" | Mục 5 |
-| 27 · D6 | Chọn độ trễ nội suy: bảng theo tần số gửi ảnh, ngoại suy dự phòng | "Độ trễ nội suy chọn bao nhiêu? Mất nhiều gói thì sao?" | VĐ3 |
-| 28 · D7 | Phân xử món hàng hiếm: cửa sổ phân xử, kiểm tra số nhịp giả | "Hai người cùng nhặt thì xử thế nào? Gửi nhịp giả thì sao?" | VĐ4 |
-| 29 · D8 | Các nguồn phá tính tất định: số thực, thứ tự duyệt, số ngẫu nhiên | "Tính tất định ảnh hưởng thế nào?" | VĐ5 |
-| 30 · D9 | Đồng bộ theo bước / GGPO so với mô hình của nhóm | "Sao không làm ngang hàng?" | VĐ1, VĐ5 |
-| 31 · D10 | Mạng giả lập: `netsim.js` (độ trễ, dao động độ trễ, mất gói); WebSocket vì trình duyệt không mở được UDP | "Demo có phản ánh mạng thật không?" | Mục 7.2 |
-
-### Bảng tổng kết (slide 21)
-
-| Vấn đề | Giải pháp | Đánh đổi |
-|---|---|---|
-| Ai quyết định | Server quyết định | Trễ 1 RTT |
-| Điều khiển ì | Dự đoán + đối chiếu | Cần mô phỏng chung |
-| Đối thủ giật | Nội suy | Thấy đối thủ ở quá khứ |
-| Tranh chấp không công bằng | Bù trễ | "Chạy rồi vẫn bị bắt" |
-| Dự đoán sai | Quay lui | Thỉnh thoảng thấy hành động bị huỷ |
+| 22 | Chuỗi 5 vấn đề con: VĐ1 → VĐ5, hệ quả trên mỗi mũi tên ("phải chờ server", "chỉ đoán được mình", "đối thủ ở quá khứ", "server có thể quyết khác"); 5 tiêu chí chọn giải pháp (phản hồi, nhất quán — ưu tiên; chịu mạng xấu, độ phức tạp, phù hợp loại game) | Cần giải thích lại mạch 5 vấn đề con hoặc tiêu chí chọn | Ý chính đã gộp vào slide 7 |
+| 23 · D1 | Thành phần của độ trễ: lan truyền, truyền, xếp hàng, xử lý | "Độ trễ đến từ đâu, giảm được không?" | Mục 2.1 |
+| 24 · D2 | TCP chi tiết: thời gian chờ gửi lại, thuật toán Nagle | "Sao không dùng TCP cho tất cả, tắt Nagle là xong?" | Mục 2.3 |
+| 25 · D3 | Bộ tích luỹ thời gian; tần số mô phỏng và tần số gửi ảnh | "Chọn 30 nhịp/giây thế nào? Client 144 Hz thì sao?" | VĐ1 |
+| 26 · D4 | Hàng đợi lệnh ở server: thiếu lệnh, dồn lệnh, chống hack tốc độ | "Lệnh đến không đều thì server làm gì?" | VĐ1 |
+| 27 · D5 | Bảng giao thức: `INPUT`, `SNAPSHOT`, `ITEM_*` | "Định dạng gói tin thế nào?" | Mục 5 |
+| 28 · D6 | Chọn độ trễ nội suy: bảng theo tần số gửi ảnh, ngoại suy dự phòng | "Độ trễ nội suy chọn bao nhiêu? Mất nhiều gói thì sao?" | VĐ3 |
+| 29 · D7 | Phân xử món hàng hiếm: cửa sổ phân xử, kiểm tra số nhịp giả | "Hai người cùng nhặt thì xử thế nào? Gửi nhịp giả thì sao?" | VĐ4 |
+| 30 · D8 | Các nguồn phá tính tất định: số thực, thứ tự duyệt, số ngẫu nhiên | "Tính tất định ảnh hưởng thế nào?" | VĐ5 |
+| 31 · D9 | Đồng bộ theo bước / GGPO so với mô hình của nhóm | "Sao không làm ngang hàng?" | VĐ1, VĐ5 |
+| 32 · D10 | Mạng giả lập: `netsim.js` (độ trễ, dao động độ trễ, mất gói); WebSocket vì trình duyệt không mở được UDP | "Demo có phản ánh mạng thật không?" | Mục 7.2 |
 
 ### Ý chính D10
 
-Đã có trong ghi chú slide 31. demo dùng server Node.js và WebSocket thật. Trình duyệt không mở được socket UDP, nên kênh là TCP; độ trễ, dao động độ trễ và mất gói được giả lập ở server (`netsim.js`) cho từng chiều của từng kết nối, mỗi gói trễ ngẫu nhiên nên có thể đến sai thứ tự giống UDP. Chạy trên cùng một máy thì RTT ≈ 0, nên dù dùng socket nào cũng phải giả lập thì mới thấy được hiệu ứng. Bản cuối thay bằng UDP thật; code kỹ thuật netcode không đổi.
+Đã có trong ghi chú slide 32. demo dùng server Node.js và WebSocket thật. Trình duyệt không mở được socket UDP, nên kênh là TCP; độ trễ, dao động độ trễ và mất gói được giả lập ở server (`netsim.js`) cho từng chiều của từng kết nối, mỗi gói trễ ngẫu nhiên nên có thể đến sai thứ tự giống UDP. Chạy trên cùng một máy thì RTT ≈ 0, nên dù dùng socket nào cũng phải giả lập thì mới thấy được hiệu ứng. Bản cuối thay bằng UDP thật; code kỹ thuật netcode không đổi.
 
 ---
 
 ## Ghi chú tập luyện
 
-- **Vai:** #1 mục lục, phần 1 và VĐ1 (slide 1–9) · #2 VĐ2, VĐ3 (slide 10–12) · #3 VĐ4, VĐ5, phần 3 và demo (slide 13–17) · cả nhóm Q&A (slide 18).
-- **Chuyển người nói** ở cuối slide 9 (#1 → #2) và cuối slide 12 (#2 → #3). Câu chuyển là câu hỏi dẫn sang vấn đề tiếp theo, đã viết sẵn trong lời nói.
-- **Bấm giờ theo cột cộng dồn.** Đến slide 12 mà đã quá 8 phút thì nói nhanh slide 13–14.
+- **Vai:** #1 mục lục, phần 1 và VĐ1 (slide 1–10) · #2 VĐ2, VĐ3 (slide 11–13) · #3 VĐ4, VĐ5, tổng kết phần 2, phần 3 và demo (slide 14–19) · cả nhóm Q&A (slide 20).
+- **Chuyển người nói** ở cuối slide 10 (#1 → #2) và cuối slide 13 (#2 → #3). Câu chuyển là câu hỏi dẫn sang vấn đề tiếp theo, đã viết sẵn trong lời nói.
+- **Bấm giờ theo cột cộng dồn.** Đến slide 13 mà đã quá 8,75 phút thì nói nhanh slide 14–15; slide 16 (tổng kết) giữ nguyên vì là câu dẫn sang demo.
 - Nhãn trên slide chỉ ghi người nói (#1/#2/#3); thời gian từng slide xem ở dòng đầu ghi chú của slide.
 - **Mỗi người tự trả lời được** các câu Q&A thuộc vấn đề con của mình (phụ lục A của `NoiDung_ChiTiet.md` có gắn nhãn VĐ).
 - Số liệu *(cần đo lại)* ở slide 6 phải thay bằng số thật trước buổi trình bày.
