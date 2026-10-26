@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Chạy lõi netcode (code dùng chung với Unity) ngoài Unity để kiểm tra logic: dotnet run -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="../T47Demo/Assets/Scripts/Netcode/*.cs" Link="Netcode/%(Filename)%(Extension)" />
+  </ItemGroup>
+
+</Project>

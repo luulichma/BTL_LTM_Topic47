@@ -1,0 +1,4 @@
+# Gốc repo bỏ qua *.csproj (mẫu Unity); project test này cần giữ lại.
+!*.csproj
+bin/
+obj/
