@@ -21,7 +21,7 @@ PHÍM
 KỊCH BẢN
   0  Client tự quyết, RTT 100 ms     bấm T: server và B đều chấp nhận
   1  Server quyết định, RTT 200 ms   T hết tác dụng, nhưng điều khiển trễ ~0,2 s
-  2  + dự đoán                        phản hồi ngay nhưng giật ngược
+  2  + dự đoán                        nhấp D: bị kéo về chỗ cũ; thả: trôi thêm
   3  + đối chiếu                      mượt, khớp bóng server; lệnh chờ 8-9
   4  10 ảnh/giây, dao động ±50 ms     ô A trong mắt B nhảy từng nấc
   5  + nội suy                        mượt nhưng trễ 250 ms (150 ms ở 20 ảnh/giây)

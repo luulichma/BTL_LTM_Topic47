@@ -73,7 +73,7 @@ Công nghệ: một scene Unity (đúng stack đã chốt). Code `Simulation.Ste
 |---|---|---|---|---|
 | 0 | Client-authoritative, latency 100 ms | Bấm "teleport" | Ô của A nhảy tới bất kỳ đâu, server và B chấp nhận | 4 |
 | 1 | Server authoritative, latency 200 ms, tắt hết | A chạy qua lại; bấm lại "teleport" | Teleport hết tác dụng, nhưng bấm phím xong khoảng 200 ms mới thấy chạy | 5 |
-| 2 | + Prediction | Chạy rồi dừng đột ngột | Phản hồi tức thì, nhưng bị kéo giật lùi | 6, 7 |
+| 2 | + Prediction | Nhấp nhanh D; rồi giữ D chạy và thả | Phản hồi tức thì. Nhấp phím thì ô bị kéo về chỗ cũ (giật ngược); khi chạy thì rung; khi thả thì trôi thêm một đoạn | 6, 7 |
 | 3 | + Reconciliation | Lặp lại | Mượt và khớp vị trí server. Số input chờ ≈ RTT/tick | 8 |
 | 4 | Nhìn khung client B; snapshot 10 Hz, jitter 50 ms | A chạy vòng tròn | Ô của A trong mắt B giật từng nấc | 9 |
 | 5 | + Interpolation (interpDelay ≈ 250 ms) | Lặp lại; rồi tăng snapshot lên 20 Hz | Mượt, nhưng trễ so với khung server; lên 20 Hz thì delay còn ≈ 150 ms (đánh đổi) | 9 |

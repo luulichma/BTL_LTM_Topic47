@@ -49,8 +49,8 @@ public sealed class DemoApp : MonoBehaviour
         {
             Title = "Cảnh 2 · Bật dự đoán phía client", Mode = AuthorityMode.ServerAuthoritative,
             Rtt = 200, SnapshotRate = 20, Prediction = true,
-            Action = "Chạy rồi dừng đột ngột",
-            Expect = "Phản hồi ngay, nhưng mỗi ảnh trạng thái kéo nhân vật lùi lại: giật ngược (VĐ2)",
+            Action = "Nhấp nhanh D; rồi chạy và thả",
+            Expect = "Nhấp: bị kéo về chỗ cũ (giật ngược); chạy: rung; thả: trôi thêm (VĐ2)",
         },
         new DemoScene
         {

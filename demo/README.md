@@ -57,14 +57,14 @@ Cách đọc màn hình:
 |---|---|---|---|---|
 | 0 | Client tự quyết, RTT 100 ms | Bấm **T** | Ô A nhảy tới chỗ bất kỳ, khung server và khung B đều chấp nhận | VĐ1 |
 | 1 | Server quyết định, RTT 200 ms, tắt mọi kỹ thuật | A chạy qua lại; bấm lại **T** | T hết tác dụng (nhật ký báo server bỏ gói, ô A bị kéo về). Nhưng bấm phím khoảng 200 ms sau mới thấy chạy | VĐ1 → VĐ2 |
-| 2 | + dự đoán | Chạy rồi dừng đột ngột | Phản hồi tức thì, nhưng nhân vật rung giật theo từng ảnh trạng thái; "Kéo lệch" khác 0 | VĐ2 |
+| 2 | + dự đoán | Nhấp nhanh D; rồi giữ D chạy và thả | Phản hồi tức thì. Nhấp phím: ô nhảy lên rồi bị kéo về chỗ cũ, một lúc sau mới tự đi tới (giật ngược). Khi chạy: rung theo từng ảnh trạng thái, "Kéo lệch" khác 0. Khi thả: ô trôi thêm một đoạn chứ không lùi | VĐ2 |
 | 3 | + đối chiếu | Lặp lại thao tác | Mượt; "Kéo lệch" = 0,00; khi dừng, ô khớp với bóng trắng. Lệnh chờ khoảng 8–9 | VĐ2 |
 | 4 | Gửi ảnh 10 lần/giây, dao động ±50 ms, chưa nội suy | Nhìn khung B; A chạy vòng tròn | Ô A trong mắt B nhảy từng nấc, vết chấm thưa | VĐ3 |
 | 5 | + nội suy (độ trễ tự tính 250 ms) | Lặp lại; rồi kéo tần số ảnh lên 20 | Vết chấm liền, mượt nhưng ô A ở khung B trễ hơn khung server. Lên 20 lần/giây thì độ trễ còn 150 ms | VĐ3 |
 
 Gợi ý khi trình bày:
 
-- Cảnh 2: nên kéo RTT lên 300–400 ms để giật ngược rõ hơn trên máy chiếu.
+- Cảnh 2: kéo RTT lên 300–400 ms thì đoạn bị kéo về lúc nhấp phím kéo dài hơn, dễ thấy trên máy chiếu. Muốn ô rung rõ hơn khi chạy thì giảm tần số gửi ảnh xuống 10 lần/giây (mỗi lần kéo lùi khoảng 0,6 đơn vị); độ rung phụ thuộc tần số gửi ảnh, không phụ thuộc RTT. Khi thả phím, ô trôi tới chứ không lùi, vì các lệnh đang trên đường vẫn tới server.
 - Cảnh 3: chỉ vào con số "Lệnh chờ xác nhận". Con số này xấp xỉ (RTT + thời gian chờ nhịp + thời gian chờ ảnh trạng thái) / 33 ms, tức chính là số lệnh mà client đang "đi trước" server.
 - Thêm mất gói 10–20 % ở cảnh 3: nhân vật vẫn mượt nhờ gửi dư (mỗi gói lệnh mang thêm 3 lệnh trước đó).
 - Luôn có sẵn video quay dự phòng.

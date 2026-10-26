@@ -163,7 +163,7 @@ Server ──────●── xác nhận seq=1 ─────────
 **Lời nói** (#2, ~0,5')
 
 - Server **không sai**: x=6 đúng là vị trí tại thời điểm server xử lý tới input seq=4. Vấn đề là client đã đi thêm các input seq=5…10 mà server chưa nhận.
-- Cảnh 2 của demo: bật prediction, chạy rồi dừng đột ngột là thấy hiện tượng này.
+- Cảnh 2 của demo: bật prediction, nhấp nhanh một phím là thấy ô nhảy lên rồi bị kéo về chỗ cũ.
 
 ---
 

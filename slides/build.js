@@ -556,8 +556,8 @@ Cảnh 0 — Client tự quyết, trễ 100 ms. Thao tác: bấm nút "dịch ch
 Cảnh 1 — Server quyết định, trễ 200 ms, tắt hết. Thao tác: A chạy qua lại; bấm lại "dịch chuyển".
 "Chuyển sang server quyết định: dịch chuyển hết tác dụng. Nhưng thầy để ý, em bấm phím khoảng 0,2 giây sau ô mới chạy."
 
-Cảnh 2 — Bật dự đoán. Thao tác: chạy rồi dừng đột ngột.
-"Bật dự đoán: phản hồi ngay. Nhưng khi dừng lại, ô bị kéo giật lùi, đó là giật ngược."
+Cảnh 2 — Bật dự đoán. Thao tác: nhấp nhanh D, rồi giữ D chạy và thả.
+"Bật dự đoán: phản hồi ngay. Em nhấp nhanh phím D, thầy thấy ô nhảy lên rồi bị kéo về chỗ cũ, một lúc sau mới tự đi tới. Đó là giật ngược: ảnh trạng thái từ quá khứ vẫn báo vị trí cũ, client ghi đè theo. Chạy liên tục thì ô rung theo từng ảnh, con số kéo lệch ở dưới khác 0. Còn khi thả phím, ô trôi thêm một đoạn, vì các lệnh đang trên đường vẫn tới server."
 
 Cảnh 3 — Bật đối chiếu. Thao tác: lặp lại.
 "Bật đối chiếu: mượt và khớp với bóng xám là vị trí theo server. Bộ đệm đang có khoảng 6 lệnh, đúng bằng RTT chia nhịp."

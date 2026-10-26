@@ -729,14 +729,14 @@ Bộ giả lập tạo ra đúng các hiện tượng mà kỹ thuật mạng ph
 |---|---|---|---|---|
 | 0 | Client tự quyết, RTT 100 ms | Bấm **T** (giả lập gói tin bị sửa) | Ô của A nhảy tới bất kỳ đâu; server và B đều chấp nhận | VĐ1 |
 | 1 | Server quyết định, RTT 200 ms, tắt mọi kỹ thuật | A chạy qua lại; bấm lại **T** | Ô A nhảy rồi bị kéo về, khung server đếm thêm 1 gói giả mạo bị bỏ. Nhưng bấm phím khoảng 200 ms sau mới thấy chạy | VĐ1 → VĐ2 |
-| 2 | Bật dự đoán | Chạy rồi dừng đột ngột | Phản hồi tức thì, nhưng nhân vật rung giật theo từng ảnh trạng thái (bị kéo lùi ~0,4 đơn vị mỗi lần); con số "kéo lệch" khác 0 | VĐ2 |
+| 2 | Bật dự đoán | Nhấp nhanh D; rồi giữ D chạy và thả | Phản hồi tức thì. Nhấp phím: ô nhảy lên rồi bị kéo về chỗ cũ, một lúc sau mới tự đi tới (giật ngược). Khi chạy: rung theo từng ảnh trạng thái (bị kéo lùi 0,2–0,4 đơn vị mỗi lần), con số "kéo lệch" khác 0. Khi thả: ô trôi thêm một đoạn chứ không lùi | VĐ2 |
 | 3 | Bật thêm đối chiếu | Lặp lại thao tác | Mượt, "kéo lệch" = 0,00, khi dừng thì khớp với bóng server; số lệnh chờ 8–9 | VĐ2 |
 | 4 | Nhìn khung B; gửi ảnh 10 lần/giây, dao động ±50 ms | A chạy vòng tròn | Ô của A trong mắt B giật từng nấc; vết chấm thưa | VĐ3 |
 | 5 | Bật nội suy (độ trễ nội suy tự tính 250 ms) | Lặp lại; sau đó kéo tần số gửi ảnh lên 20 lần/giây | Vết chấm liền, mượt nhưng trễ so với khung server; ở 20 lần/giây, độ trễ giảm còn 150 ms | VĐ3 |
 
 Gợi ý khi chạy trên sân khấu:
 
-- Cảnh 2: kéo RTT lên 300–400 ms thì độ giật rõ hơn trên máy chiếu.
+- Cảnh 2: kéo RTT lên 300–400 ms thì đoạn bị kéo về lúc nhấp phím kéo dài hơn, dễ thấy trên máy chiếu. Muốn ô rung rõ hơn khi chạy thì giảm tần số gửi ảnh xuống 10 lần/giây (mỗi lần kéo lùi khoảng 0,6 đơn vị); độ rung phụ thuộc tần số gửi ảnh, không phụ thuộc RTT. Khi thả phím, ô trôi tới chứ không lùi, vì các lệnh đang trên đường vẫn tới server.
 - Cảnh 3: thêm 10–20 % mất gói để cho thấy gửi dư vẫn giữ được chuyển động mượt.
 - Bản build nhận tham số `-scene N` (mở sẵn cảnh N) và `-autoplay` (A tự chạy vòng tròn, tiện khi tập một mình). Luôn có sẵn video quay dự phòng.
 
