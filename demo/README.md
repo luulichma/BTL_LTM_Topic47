@@ -10,6 +10,18 @@ Bản chứng minh ý tưởng (proof-of-concept) theo mục 7 của [`docs/NoiD
 | Build bản Windows | Trong Unity: menu **T47 → Build Windows** → chạy `demo/T47Demo/Build/T47Demo.exe` |
 | Build từ dòng lệnh | `"F:\Unity Editor\6000.5.9f1\Editor\Unity.exe" -batchmode -nographics -projectPath demo/T47Demo -executeMethod DemoSetup.BuildWindows` |
 
+### Bộ cài đặt (gửi cho thành viên khác, máy chiếu)
+
+`demo/installer/Output/T47Demo_Setup_0.1.0.exe` (~25 MB). Giao diện tiếng Việt, không cần quyền admin. Bộ cài tạo shortcut ở Start Menu (bản thường, bản "tập một mình" có `-autoplay`, file hướng dẫn) và tuỳ chọn shortcut Desktop. Gỡ trong *Settings → Apps*.
+
+Tạo lại bộ cài sau khi build Unity:
+
+```
+"%LOCALAPPDATA%\Programs\Inno Setup 6\ISCC.exe" demo\installer\T47Demo.iss
+```
+
+Cần [Inno Setup 6](https://jrsoftware.org/isinfo.php). Muốn đổi số phiên bản thì sửa `AppVersion` trong `T47Demo.iss`. File `Vietnamese.isl` là bản dịch cộng đồng lấy từ repo Inno Setup (Unofficial).
+
 Khi thuyết trình nên chạy **bản build** cho nhẹ máy và tránh lỗi Editor. Tham số dòng lệnh của bản build:
 
 - `-scene N`: mở thẳng cảnh N (0–5).

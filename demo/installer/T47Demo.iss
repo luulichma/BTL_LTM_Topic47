@@ -44,10 +44,11 @@ Source: "HuongDan.txt"; DestDir: "{app}"; Flags: ignoreversion isreadme
 
 [Icons]
 Name: "{group}\{#AppName}"; Filename: "{app}\{#AppExe}"
-Name: "{group}\{#AppName} (tập một mình: A tự chạy)"; Filename: "{app}\{#AppExe}"; Parameters: "-autoplay"
+Name: "{group}\{#AppName} - tập một mình (A tự chạy)"; Filename: "{app}\{#AppExe}"; Parameters: "-autoplay"
 Name: "{group}\Hướng dẫn sử dụng"; Filename: "{app}\HuongDan.txt"
 Name: "{group}\{cm:UninstallProgram,{#AppName}}"; Filename: "{uninstallexe}"
 Name: "{autodesktop}\{#AppName}"; Filename: "{app}\{#AppExe}"; Tasks: desktopicon
 
 [Run]
 Filename: "{app}\{#AppExe}"; Description: "{cm:LaunchProgram,{#AppName}}"; Flags: nowait postinstall skipifsilent
+
