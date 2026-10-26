@@ -98,9 +98,11 @@ Bộ kiểm tra dùng đồng hồ giả, chạy 60 khung hình/giây, kiểm tr
 | Nội suy (10 ảnh/giây, ±50 ms) | Bước nhảy lớn nhất mỗi khung: 1,00 → 0,17; độ trễ hình ảnh đối thủ 350 ms, khớp lý thuyết 100 + 250 ms |
 | Ảnh trạng thái đến sai thứ tự | Bị bỏ; nhịp server ở client luôn tăng |
 
-## Chỗ khác so với tài liệu nội dung
+## Lựa chọn thiết kế cần nhớ
 
-- **Server không dùng lại lệnh cũ khi hàng đợi trống.** Thay vào đó, mỗi nhịp server được cộng 1 lượt xử lý, để dành tối đa 3 lượt. Lệnh đến dồn thì dùng lượt để dành để bắt kịp. Cách này vẫn chống hack tốc độ, vì trung bình không quá 30 lệnh/giây, và tránh được việc server đi thừa bước khiến client bị kéo lệch dù mạng chỉ có độ trễ cố định. Mục "Hàng đợi lệnh ở server" (VĐ1) của `NoiDung_ChiTiet.md` nên sửa theo.
+Các điểm này đã được cập nhật vào `docs/NoiDung_ChiTiet.md` (VĐ1, VĐ2, mục 5, mục 7) và `docs/NoiDung_ThuyetTrinh.md`:
+
+- **Server không dùng lại lệnh cũ khi hàng đợi trống.** Mỗi nhịp server được cộng 1 lượt xử lý, để dành tối đa 3 lượt. Lệnh đến dồn thì dùng lượt để dành để bắt kịp. Cách này vẫn chống hack tốc độ, vì trung bình không quá 30 lệnh/giây, và tránh được việc server đi thừa bước khiến client bị kéo lệch dù mạng chỉ có độ trễ cố định.
 - **Số lệnh chờ đo được là khoảng 8–9, không phải 6** (RTT 200 ms, 20 ảnh/giây). Lý do: ngoài RTT còn có thời gian chờ tới nhịp kế tiếp và tới lần gửi ảnh kế tiếp, đúng với công thức độ trễ điều khiển ở VĐ2.
 - **Chưa làm bước làm mượt sai lệch nhỏ** (giảm dần vectơ sai lệch). Demo cố ý để sai lệch hiện rõ.
 - Chưa có va chạm giữa hai nhân vật.

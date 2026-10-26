@@ -223,11 +223,15 @@ Render(alpha: accumulator / Dt);     // vẽ nội suy giữa nhịp trước v�
 
 Băng thông không phải là giới hạn. Một gói lệnh có khoảng 10–20 byte dữ liệu cộng 28 byte phần đầu UDP/IPv4. Gửi 30 gói mỗi giây chỉ tốn khoảng 1,5 KB/s.
 
-**Hàng đợi lệnh ở server.** Lệnh đến không đều vì dao động độ trễ: có nhịp không có lệnh nào, có nhịp dồn hai lệnh. Chính sách xử lý:
+**Hàng đợi lệnh ở server.** Lệnh đến không đều vì dao động độ trễ: có nhịp không có lệnh nào, có nhịp dồn hai ba lệnh. Nhóm dùng cơ chế **quỹ lượt xử lý**:
 
-- Mỗi nhịp xử lý **tối đa 1 lệnh** cho mỗi người chơi, cho phép bắt kịp tối đa 2 lệnh khi bị dồn. Giới hạn này đồng thời **chống hack tốc độ**: client có gửi 60 lệnh/giây cũng không chạy nhanh gấp đôi.
-- Hàng đợi trống thì **dùng lại lệnh trước**, tức đoán người chơi vẫn đang giữ phím. Nếu đoán sai, client sẽ tự sửa (VĐ2).
-- Lệnh có số thứ tự không lớn hơn số của lệnh đã xử lý thì bỏ, vì đó là gói trùng hoặc đến muộn.
+- Mỗi nhịp, mỗi người chơi được cộng **1 lượt**, để dành tối đa **3 lượt**. Mỗi lệnh xử lý tốn 1 lượt.
+- Nhịp nào hàng đợi trống thì server **không làm gì** với người chơi đó: nhân vật đứng yên trên server, lượt được để dành.
+- Khi lệnh đến dồn, server dùng lượt để dành để **bắt kịp** (tối đa 3 lệnh trong một nhịp).
+- Trung bình không quá 1 lệnh mỗi nhịp, nên cơ chế này đồng thời **chống hack tốc độ**: client gửi 60 lệnh/giây cũng chỉ được xử lý 30 lệnh/giây (demo đo được: khoảng 6 đơn vị/giây, đúng tốc độ tối đa).
+- Lệnh có số thứ tự không lớn hơn số của lệnh đã nhận thì bỏ, vì đó là gói trùng (do gửi dư) hoặc đến muộn.
+
+Một cách khác hay gặp là khi hàng đợi trống thì **dùng lại lệnh trước**, tức đoán người chơi vẫn đang giữ phím. Nhóm đã thử và bỏ cách này. Khi lệnh thật đến, server lại áp nó thêm một lần nữa, nên server đi **thừa bước** so với số lệnh client đã gửi. Vị trí server không còn bằng "vị trí đầu + tổng các lệnh", và client bị kéo lệch liên tục, ngay cả khi mạng chỉ có độ trễ cố định (do khung hình của client và server lệch pha nhau). Với cách quỹ lượt, trạng thái server luôn đúng bằng kết quả áp lần lượt các lệnh đã nhận, nên bước đối chiếu ở VĐ2 cho kết quả trùng khớp tuyệt đối.
 
 **Giao thức truyền: TCP hay UDP.** Dữ liệu chuyển động có **thời hạn sử dụng rất ngắn**: vị trí của 200 ms trước đã vô giá trị khi có vị trí mới hơn. TCP vẫn gửi lại nó và chặn mọi dữ liệu mới phía sau (mục 2.3), nên không phù hợp. Nhóm dùng **cả hai giao thức** tuỳ loại dữ liệu:
 
@@ -242,7 +246,7 @@ Vì UDP không đảm bảo gì, nhóm tự bổ sung các cơ chế sau:
 
 - **Số thứ tự** (sequence number, `seq`) và **số nhịp** ở mỗi gói: để phát hiện gói mất, bỏ gói đến muộn và gói trùng.
 - **Xác nhận** (ack): ảnh trạng thái mang trường `lastProcessedSeq`, nghĩa là "tôi đã xử lý tới lệnh số N của bạn".
-- **Gửi dư** (redundancy): mỗi gói lệnh kèm thêm 2–3 lệnh trước đó. Mất một gói thì gói sau mang lại lệnh đó, không cần gửi lại.
+- **Gửi dư** (redundancy): mỗi gói lệnh kèm thêm 3 lệnh trước đó. Mất một gói thì gói sau mang lại lệnh đó, không cần gửi lại.
 - **Kích thước gói** dưới khoảng 1.200 byte để tránh bị phân mảnh IP. Gói của nhóm chỉ vài chục byte.
 
 **Hệ quả của lựa chọn này.** Nếu client chỉ vẽ theo ảnh trạng thái, mỗi thao tác phải đi một vòng tới server rồi mới quay về. Đó là VĐ2.
@@ -338,19 +342,27 @@ void OnSnapshot(Snapshot s) {
 - Nếu chỉ dự đoán (C): client đặt x = 0,8, nhân vật **giật lùi 1,2 đơn vị**.
 - Nếu có đối chiếu (D): client đặt x = 0,8, bỏ lệnh 1–4, chạy lại lệnh 5–10 (6 × 0,2 = 1,2), được x = **2,0**. Kết quả trùng với vị trí đang dự đoán, nên người chơi **không thấy gì**.
 
-Số lệnh trong bộ đệm chờ luôn xấp xỉ RTT chia độ dài một nhịp (ở đây khoảng 6). Demo hiển thị con số này trên màn hình.
+Ví dụ trên làm tròn cho dễ tính. Thực tế, số lệnh trong bộ đệm chờ không chỉ bằng RTT chia độ dài một nhịp, mà theo đúng công thức độ trễ điều khiển ở trên:
+
+```
+số lệnh chờ ≈ (RTT + chờ tới nhịp kế tiếp + chờ tới lần gửi ảnh kế tiếp) / 33,3 ms
+```
+
+Với RTT 200 ms, 20 ảnh/giây, demo đo được **8–9 lệnh**; hạ xuống 10 ảnh/giây thì lên 10–11 lệnh. Đây chính là số lệnh mà client đang "đi trước" server, và demo hiển thị con số này trên màn hình.
+
+**Chỉ dự đoán mà không đối chiếu thì giật đến mức nào.** Demo đo được: mỗi ảnh trạng thái kéo lùi nhân vật khoảng **0,4 đơn vị** (2 nhịp), tức nhân vật rung giật 20 lần mỗi giây. Lý do là sau mỗi lần ghi đè, client lại dự đoán tiếp từ vị trí server, nên chỉ kịp đi trước server vài nhịp trước khi bị kéo lùi lần nữa. RTT càng lớn thì độ giật càng rõ.
 
 **Khi dự đoán thật sự sai.** Chạy lại chỉ cho đúng vị trí dự đoán khi server và client mô phỏng giống nhau. Có ba trường hợp lệch:
 
-- Lệnh mới đến trễ nên server dùng lại lệnh cũ.
+- Mất liên tiếp nhiều gói lệnh hơn số lệnh gửi dư: lệnh đó mất hẳn, server không bao giờ áp nó.
 - Hai nhân vật va chạm nhau, trong khi client không biết chính xác vị trí hiện tại của đối thủ.
-- Server từ chối hành động (VĐ5).
+- Server từ chối hành động (VĐ5), hoặc client bị sửa (gói vị trí giả mạo bị server bỏ qua).
 
-Lệch nhỏ thì **làm mượt**: giữ lại một vectơ sai lệch và giảm dần nó về 0 trong vài khung hình. Lệch lớn hơn một ngưỡng thì cho nhân vật nhảy thẳng tới vị trí đúng.
+Lệch nhỏ thì **làm mượt**: giữ lại một vectơ sai lệch và giảm dần nó về 0 trong vài khung hình. Lệch lớn hơn một ngưỡng thì cho nhân vật nhảy thẳng tới vị trí đúng. Demo sơ bộ **cố ý chưa làm mượt** để khán giả thấy rõ mỗi lần bị kéo lệch.
 
 **Mất gói và sai thứ tự.**
 
-- Mất gói lệnh: gói sau mang lại lệnh đó (gửi dư). Mất cả loạt gói thì server dùng lại lệnh cũ, và client được sửa qua bước đối chiếu.
+- Mất gói lệnh: gói sau mang lại lệnh đó (mỗi gói gửi kèm 3 lệnh trước). Demo với 10 % mất gói: client và server vẫn trùng khớp khi dừng. Mất liên tiếp hơn 3 gói thì lệnh mất hẳn, client được sửa qua bước đối chiếu.
 - Mất gói ảnh trạng thái: ảnh sau thay thế được, vì mỗi ảnh chứa trạng thái đầy đủ.
 - Ảnh trạng thái đến sai thứ tự: bỏ ảnh có số nhịp cũ hơn ảnh đã xử lý.
 
@@ -602,10 +614,19 @@ Giao thức (nháp):
 | Gói | Kênh | Nội dung |
 |---|---|---|
 | `LOGIN`, `FIND_MATCH`, `MATCH_FOUND` | TCP | Đăng nhập, ghép trận, mã phòng, danh sách vật của trận |
-| `INPUT` | UDP, client → server | `seq:u32`, `clientTick:u32`, `renderTick:u32`, `keys:u8` (mỗi bit ứng với một phím), kèm 2–3 lệnh trước |
-| `SNAPSHOT` | UDP, server → client | `serverTick:u32`, `lastProcessedSeq:u32`, danh sách thực thể `{id, x, y, holdingItem}`, trạng thái vật |
+| `INPUT` | UDP, client → server | `playerId:u8`, `clientTime`, rồi tới 4 lệnh, mỗi lệnh `{seq:u32, clientTick:u32, keys:u8}` (mỗi bit của `keys` ứng với một phím). Lệnh mới nhất nằm cuối, 3 lệnh trước là phần gửi dư. Bản cuối thêm `renderTick:u32` cho bù trễ |
+| `STATE` | UDP, client → server | `playerId:u8`, `clientTime`, `x`, `y`. Chỉ dùng ở chế độ client tự quyết; ở chế độ server quyết định, server bỏ gói này (demo dùng nó để giả lập gói bị sửa) |
+| `SNAPSHOT` | UDP, server → client | `serverTick:u32`, `serverTime`, `lastProcessedSeq:u32`, `echoClientTime`, `holdTime`, danh sách thực thể `{id, x, y}`. Bản cuối thêm `holdingItem` và trạng thái vật |
 | `ITEM_GRANTED` / `ITEM_REJECTED` | TCP | Kết quả phân xử vật bị tranh chấp, kèm số nhịp |
 | `SCORE`, `MATCH_END` | TCP | Điểm chính thức, kết quả trận |
+
+**Đo RTT không cần gói ping riêng.** Mỗi gói `INPUT` mang đồng hồ của client (`clientTime`). Server gửi trả giá trị mới nhất nhận được (`echoClientTime`) trong ảnh trạng thái, kèm khoảng thời gian đã giữ nó (`holdTime`). Client tính:
+
+```
+RTT = bây giờ − echoClientTime − holdTime
+```
+
+rồi làm mượt bằng trung bình trượt. Demo đo được 190–214 ms khi đặt RTT 200 ms.
 
 Công nghệ: client dùng Unity (C#); server dùng .NET (C#) với `System.Net.Sockets`; cơ sở dữ liệu SQLite. Code mô phỏng dùng chung là một file C# thuần.
 
@@ -643,18 +664,36 @@ Tình huống tranh món hàng hiếm đặc biệt dễ thấy trên sân khấ
 
 Demo ở buổi này là **bản chứng minh ý tưởng** (proof-of-concept) để minh hoạ kỹ thuật, chưa phải game hoàn chỉnh.
 
-- **Đối tượng:** 2 ô vuông màu trên một mặt phẳng, chỉ có di chuyển. Người A dùng WASD, người B dùng phím mũi tên.
+Mã nguồn: thư mục [`demo/`](../demo/), hướng dẫn chạy ở [`demo/README.md`](../demo/README.md).
+
+- **Công nghệ:** một project Unity 6 (C#), có bản build Windows chạy độc lập. Lõi kỹ thuật mạng nằm trong các file C# thuần, được cấu hình **cấm tham chiếu thư viện Unity**, nên server .NET ở bản cuối dùng lại nguyên các file này:
+
+  | File | Nội dung |
+  |---|---|
+  | `Simulation.cs` | `Simulation.Step(state, keys, dt)`, dùng chung cho client và server; 30 nhịp/giây, tốc độ 6 đơn vị/giây |
+  | `Protocol.cs` | Gói `INPUT`, `STATE`, `SNAPSHOT`, mã hoá nhị phân |
+  | `Transport.cs` | `ITransport` và mạng giả lập |
+  | `GameServer.cs` | Vòng lặp nhịp, hàng đợi lệnh có quỹ lượt, gửi ảnh trạng thái |
+  | `GameClient.cs` | Dự đoán, đối chiếu, nội suy, ngoại suy ngắn, đo RTT |
+
+- **Đối tượng:** 2 ô vuông màu trên một mặt phẳng 16 × 10 đơn vị, chỉ có di chuyển. Người A dùng WASD, người B dùng phím mũi tên.
 - **Màn hình chia 3 khung:** Client A · Server · Client B. Khung server là "sự thật"; hai khung client là những gì mỗi người chơi nhìn thấy.
-- **Mạng giả lập** chạy trong cùng tiến trình, chỉnh được bằng thanh trượt: độ trễ, dao động độ trễ, tỉ lệ mất gói, tần số gửi ảnh trạng thái.
-- **Công tắc:**
-  - chuyển giữa chế độ client tự quyết và server quyết định;
-  - bật/tắt dự đoán, đối chiếu, nội suy.
-- **Thông tin hiển thị trên màn hình:**
-  - RTT;
-  - nhịp hiện tại của server;
+- **Mạng giả lập** chạy trong cùng tiến trình, chỉnh được bằng thanh trượt: RTT (0–500 ms), dao động độ trễ (±0–100 ms), tỉ lệ mất gói (0–30 %), tần số gửi ảnh trạng thái (5–30 lần/giây).
+- **Công tắc** (bấm chuột hoặc phím tắt):
+  - **F1:** chuyển giữa chế độ client tự quyết và server quyết định;
+  - **F2 / F3 / F4:** bật/tắt dự đoán, đối chiếu, nội suy;
+  - **T:** client A gửi gói vị trí giả mạo (dịch chuyển tới chỗ ngẫu nhiên);
+  - **0–5:** chuyển ngay sang cấu hình của từng cảnh trong kịch bản.
+- **Thông tin hiển thị dưới mỗi khung client:**
+  - RTT đo được (không phải số đặt trên thanh trượt, xem mục 5);
+  - nhịp server của ảnh trạng thái mới nhất;
   - số lệnh đang nằm trong bộ đệm chờ;
-  - "bóng" vị trí theo server, đặt cạnh vị trí dự đoán;
-  - độ trễ nội suy hiện tại.
+  - khoảng nhân vật bị kéo lệch ở lần đối chiếu gần nhất;
+  - độ trễ nội suy hiện tại, và báo khi đang ngoại suy.
+- **Trên khung client còn có:**
+  - "bóng" (viền trắng): vị trí của mình theo ảnh trạng thái mới nhất;
+  - vết chấm của đối thủ trong 0,75 giây gần nhất. Chấm thưa, cách từng cụm nghĩa là đối thủ đang nhảy cóc; chấm liền nghĩa là chuyển động mượt.
+- **Khung server hiển thị:** nhịp, chế độ, số lệnh đã xử lý, số gói vị trí giả mạo bị bỏ, số gói mất theo từng chiều.
 - **Thông số:** mô phỏng 30 nhịp/giây. Độ trễ nội suy **tự tính** theo công thức `2 × chu kỳ gửi ảnh + dao động độ trễ` (VĐ3), nên khi đổi tần số gửi ảnh trong lúc demo, độ trễ hiển thị luôn khớp với lý thuyết.
 
 ### 7.2 Mạng giả lập
@@ -668,9 +707,9 @@ interface ITransport {
 }
 ```
 
-Lớp `SimulatedTransport` hoạt động như sau:
+Mỗi chiều truyền là một `SimulatedLink`; `SimulatedTransport` ghép hai chiều thành một đầu kết nối. Demo có 2 kết nối (A ↔ server, B ↔ server), tức 4 chiều truyền, mỗi chiều có bộ sinh số ngẫu nhiên riêng. Cách hoạt động:
 
-- **Khi gửi:** bỏ gói theo xác suất mất gói. Nếu không bỏ, tính thời điểm giao `deliverAt = now + độ trễ/2 + ngẫu nhiên(−dao động, +dao động)` rồi đưa gói vào hàng đợi ưu tiên sắp theo `deliverAt`.
+- **Khi gửi:** bỏ gói theo xác suất mất gói. Nếu không bỏ, tính thời điểm giao `deliverAt = now + RTT/2 + ngẫu nhiên(−dao động, +dao động)` rồi đưa gói vào hàng đợi ưu tiên sắp theo `deliverAt`.
 - **Khi nhận:** chỉ trả ra các gói có `deliverAt ≤ now`.
 - Mỗi gói có độ trễ ngẫu nhiên riêng nên có thể **đến sai thứ tự**, giống UDP thật.
 
@@ -686,14 +725,40 @@ Bộ giả lập tạo ra đúng các hiện tượng mà kỹ thuật mạng ph
 
 | # | Cấu hình | Thao tác | Khán giả thấy | Vấn đề con |
 |---|---|---|---|---|
-| 0 | Client tự quyết, độ trễ 100 ms | Bấm nút "dịch chuyển" (giả lập gói tin bị sửa) | Ô của A nhảy tới bất kỳ đâu; server và B đều chấp nhận | VĐ1 |
-| 1 | Server quyết định, độ trễ 200 ms, tắt mọi kỹ thuật | A chạy qua lại; bấm lại nút "dịch chuyển" | Nút dịch chuyển hết tác dụng, nhưng bấm phím khoảng 200 ms sau mới thấy chạy | VĐ1 → VĐ2 |
-| 2 | Bật dự đoán | Chạy rồi dừng đột ngột | Phản hồi tức thì, nhưng nhân vật bị giật ngược | VĐ2 |
-| 3 | Bật thêm đối chiếu | Lặp lại thao tác | Mượt, khớp với "bóng" server; số lệnh chờ ≈ RTT / nhịp ≈ 6 | VĐ2 |
-| 4 | Nhìn khung B; gửi ảnh 10 lần/giây, dao động độ trễ 50 ms | A chạy vòng tròn | Ô của A trong mắt B giật từng nấc | VĐ3 |
-| 5 | Bật nội suy (độ trễ nội suy tự tính ≈ 250 ms) | Lặp lại; sau đó tăng tần số gửi ảnh lên 20 lần/giây | Mượt nhưng trễ so với khung server; ở 20 lần/giây, độ trễ giảm còn ≈ 150 ms | VĐ3 |
+| Phím | Cấu hình | Thao tác | Khán giả thấy | Vấn đề con |
+|---|---|---|---|---|
+| 0 | Client tự quyết, RTT 100 ms | Bấm **T** (giả lập gói tin bị sửa) | Ô của A nhảy tới bất kỳ đâu; server và B đều chấp nhận | VĐ1 |
+| 1 | Server quyết định, RTT 200 ms, tắt mọi kỹ thuật | A chạy qua lại; bấm lại **T** | Ô A nhảy rồi bị kéo về, khung server đếm thêm 1 gói giả mạo bị bỏ. Nhưng bấm phím khoảng 200 ms sau mới thấy chạy | VĐ1 → VĐ2 |
+| 2 | Bật dự đoán | Chạy rồi dừng đột ngột | Phản hồi tức thì, nhưng nhân vật rung giật theo từng ảnh trạng thái (bị kéo lùi ~0,4 đơn vị mỗi lần); con số "kéo lệch" khác 0 | VĐ2 |
+| 3 | Bật thêm đối chiếu | Lặp lại thao tác | Mượt, "kéo lệch" = 0,00, khi dừng thì khớp với bóng server; số lệnh chờ 8–9 | VĐ2 |
+| 4 | Nhìn khung B; gửi ảnh 10 lần/giây, dao động ±50 ms | A chạy vòng tròn | Ô của A trong mắt B giật từng nấc; vết chấm thưa | VĐ3 |
+| 5 | Bật nội suy (độ trễ nội suy tự tính 250 ms) | Lặp lại; sau đó kéo tần số gửi ảnh lên 20 lần/giây | Vết chấm liền, mượt nhưng trễ so với khung server; ở 20 lần/giây, độ trễ giảm còn 150 ms | VĐ3 |
+
+Gợi ý khi chạy trên sân khấu:
+
+- Cảnh 2: kéo RTT lên 300–400 ms thì độ giật rõ hơn trên máy chiếu.
+- Cảnh 3: thêm 10–20 % mất gói để cho thấy gửi dư vẫn giữ được chuyển động mượt.
+- Bản build nhận tham số `-scene N` (mở sẵn cảnh N) và `-autoplay` (A tự chạy vòng tròn, tiện khi tập một mình). Luôn có sẵn video quay dự phòng.
 
 VĐ4 và VĐ5 **không demo ở buổi này**. Hai vấn đề này giải thích bằng hình dòng thời gian trên slide, và sẽ được demo ở bản cuối qua tình huống tranh món hàng hiếm.
+
+### 7.4 Kết quả kiểm tra tự động
+
+Lõi kỹ thuật mạng có bộ kiểm tra riêng (`demo/NetcodeTests`, chạy bằng `dotnet run`), dùng đồng hồ giả và chạy 60 khung hình/giây. Mỗi kiểm tra ứng với một cảnh demo:
+
+| Kiểm tra | Cấu hình | Kết quả đo được |
+|---|---|---|
+| Client tự quyết nhận gói dịch chuyển | RTT 100 ms | Server và B đều thấy A ở vị trí giả mạo |
+| Server quyết định bỏ gói vị trí giả mạo | RTT 200 ms | Server giữ nguyên A; client A bị kéo về |
+| Không dự đoán | RTT 200 ms | Bấm phím **233 ms** sau mới thấy chạy (lý thuyết: RTT + 0–83 ms) |
+| Chỉ dự đoán | RTT 200 ms | Mỗi ảnh trạng thái kéo lùi nhân vật **0,40 đơn vị** |
+| Dự đoán + đối chiếu | RTT 200 ms | Sai lệch **0,000**; lệnh chờ 9; khi dừng, client trùng server |
+| Đối chiếu khi mạng xấu | RTT 200 ms, ±50 ms, mất 10 % | Mất 18/149 gói lệnh; khi dừng, client vẫn trùng server |
+| Hack tốc độ: gửi 60 lệnh/giây | RTT 50 ms | Server chỉ cho đi khoảng 6 đơn vị/giây (đúng tốc độ tối đa) |
+| Nội suy | 10 ảnh/giây, ±50 ms | Bước nhảy lớn nhất mỗi khung hình giảm từ **1,00 xuống 0,17** đơn vị; độ trễ hình ảnh đối thủ tăng từ 167 ms lên **350 ms**, đúng bằng RTT/2 + độ trễ nội suy = 100 + 250 ms |
+| Ảnh trạng thái đến sai thứ tự | ±80 ms, 30 ảnh/giây | Bị bỏ; nhịp server ở client luôn tăng |
+
+Bảng này dùng được làm "kết quả đo" trên slide: mỗi kỹ thuật có một con số trước và sau.
 
 ## 8. Giới hạn và hướng làm tiếp
 
@@ -701,7 +766,9 @@ VĐ4 và VĐ5 **không demo ở buổi này**. Hai vấn đề này giải thíc
 
 - Mạng giả lập chạy trong cùng tiến trình, chưa đi qua socket thật.
 - Chỉ có di chuyển, chưa có vật thể, nên chưa minh hoạ được VĐ4 và VĐ5.
-- Chưa có đo đạc định lượng (sai lệch vị trí, số lần quay lui theo độ trễ).
+- Chưa có va chạm giữa hai nhân vật.
+- Chưa làm mượt sai lệch nhỏ (cố ý, để thấy rõ mỗi lần bị kéo lệch).
+- Mới có số đo ở các cấu hình cố định (mục 7.4), chưa có biểu đồ theo dải độ trễ.
 
 **Bản cuối:**
 
@@ -731,16 +798,25 @@ Cách này phải chờ lệnh của người chậm nhất ở mỗi bước, v
 TCP đảm bảo thứ tự, nên một gói mất sẽ chặn mọi gói sau (nghẽn đầu hàng). Điều đó không hợp với dữ liệu chuyển động, vốn chỉ cần bản mới nhất. UDP không chặn, nhưng ứng dụng phải tự thêm số thứ tự, xác nhận và gửi dư. Dữ liệu cần chắc chắn tới nơi (đăng nhập, kết quả phân xử, điểm) đi bằng TCP; dữ liệu tần suất cao và nhanh cũ (lệnh, ảnh trạng thái) đi bằng UDP. WebSocket chạy trên TCP nên cũng gặp vấn đề nghẽn đầu hàng.
 
 **Vì sao không gửi lệnh điều khiển bằng TCP?** (VĐ1)
-Mất một gói lệnh thì TCP giữ lại mọi lệnh phía sau cho tới khi gửi lại xong, gây khựng ít nhất một RTT. Với UDP, mỗi gói kèm vài lệnh trước đó, nên mất một gói thì gói sau đã mang lại lệnh bị mất.
+Mất một gói lệnh thì TCP giữ lại mọi lệnh phía sau cho tới khi gửi lại xong, gây khựng ít nhất một RTT. Với UDP, mỗi gói kèm 3 lệnh trước đó, nên mất một gói thì gói sau đã mang lại lệnh bị mất.
+
+**Lệnh đến không đều thì server làm gì? Sao không dùng lại lệnh trước?** (VĐ1)
+Mỗi nhịp server cộng cho mỗi người chơi 1 lượt xử lý, để dành tối đa 3 lượt. Nhịp không có lệnh thì nhân vật đứng yên trên server; lệnh đến dồn thì dùng lượt để dành để bắt kịp. Dùng lại lệnh trước làm server đi thừa bước so với số lệnh client gửi, nên client bị kéo lệch liên tục; với quỹ lượt, trạng thái server luôn đúng bằng kết quả áp các lệnh đã nhận, và trung bình vẫn không quá 30 lệnh/giây nên chống được hack tốc độ.
+
+**Server biết RTT bằng cách nào?** (VĐ1)
+Không cần gói ping riêng. Gói lệnh mang đồng hồ của client, server gửi trả giá trị đó trong ảnh trạng thái kèm thời gian đã giữ nó. Client lấy giờ hiện tại trừ hai giá trị này là ra RTT, rồi làm mượt.
 
 **Chọn tần số mô phỏng thế nào?** (VĐ1)
 Đó là cân bằng giữa độ chính xác, độ trễ và chi phí CPU. Game di chuyển không quá nhanh như xếp đơn hàng thì 30 nhịp/giây là đủ; game bắn súng cạnh tranh thường dùng từ 60 nhịp/giây trở lên.
 
 **Xử lý mất gói và gói đến sai thứ tự ra sao?** (VĐ1, VĐ2)
-Mọi gói đều có số thứ tự hoặc số nhịp, gói cũ hơn gói đã nhận thì bỏ. Lệnh được gửi dư vài lệnh trước để bù mất gói. Ảnh trạng thái luôn chứa trạng thái đầy đủ, nên mất một ảnh thì ảnh sau thay thế. Server thiếu lệnh thì dùng lại lệnh trước, và client tự sửa qua bước đối chiếu.
+Mọi gói đều có số thứ tự hoặc số nhịp, gói cũ hơn gói đã nhận thì bỏ. Mỗi gói lệnh gửi dư 3 lệnh trước để bù mất gói. Ảnh trạng thái luôn chứa trạng thái đầy đủ, nên mất một ảnh thì ảnh sau thay thế. Mất liên tiếp quá nhiều gói thì lệnh mất hẳn, và client tự sửa qua bước đối chiếu. Demo với 10 % mất gói, client và server vẫn trùng khớp.
 
 **Chỉ dự đoán mà không đối chiếu thì sao?** (VĐ2)
-Ảnh trạng thái phản ánh quá khứ, nên ghi đè vị trí theo nó sẽ kéo nhân vật lùi về chỗ cũ (giật ngược). Bước đối chiếu giữ lại những lệnh server chưa xử lý và chạy lại chúng sau khi đặt lại trạng thái.
+Ảnh trạng thái phản ánh quá khứ, nên ghi đè vị trí theo nó sẽ kéo nhân vật lùi về chỗ cũ (giật ngược). Bước đối chiếu giữ lại những lệnh server chưa xử lý và chạy lại chúng sau khi đặt lại trạng thái. Demo đo được: chỉ dự đoán thì mỗi ảnh kéo lùi 0,4 đơn vị; có đối chiếu thì sai lệch bằng 0.
+
+**Số lệnh chờ trong demo là 8–9, sao không phải RTT chia nhịp = 6?** (VĐ2)
+Ngoài RTT, lệnh còn phải chờ tới nhịp kế tiếp của server (0–33 ms) và chờ tới lần gửi ảnh kế tiếp (0–50 ms ở 20 ảnh/giây). Cộng lại khoảng 250–280 ms, chia 33 ms là 8–9 lệnh. Con số này đúng bằng độ trễ điều khiển ở VĐ2, tức khoảng mà client đang đi trước server.
 
 **Có dự đoán được cho đối thủ không?** (VĐ3)
 Có thể, đó là ngoại suy: đoán vị trí theo vận tốc cuối cùng. Ngoại suy không bị trễ nhưng sai mỗi khi đối thủ đổi hướng, nên hợp với vật thể có quán tính lớn. Nhân vật người đổi hướng tức thì nên dùng nội suy; nhóm chỉ ngoại suy ngắn khi thiếu gói.
@@ -762,6 +838,9 @@ Dự đoán chỉ đúng khi client mô phỏng giống server. Khi server quy�
 
 **Demo dùng mạng giả lập thì có phản ánh đúng mạng thật không?** (Demo)
 UDP trên cùng một máy có độ trễ gần 0, nên dù dùng socket thật vẫn phải giả lập độ trễ. Bộ giả lập tạo ra đúng các hiện tượng mà kỹ thuật mạng phải xử lý. Lớp truyền tin là interface `ITransport`, nên bản cuối thay bằng UDP thật mà không phải sửa phần còn lại.
+
+**Sao biết demo chạy đúng, không phải chỉnh cho đẹp?** (Demo)
+Lõi kỹ thuật mạng có bộ kiểm tra tự động chạy ngoài Unity (mục 7.4). Các con số đo được khớp lý thuyết: không dự đoán thì trễ 233 ms với RTT 200 ms; độ trễ hình ảnh đối thủ khi nội suy là 350 ms, đúng bằng RTT/2 + độ trễ nội suy.
 
 ## B. Bảng đối chiếu thuật ngữ Việt – Anh
 

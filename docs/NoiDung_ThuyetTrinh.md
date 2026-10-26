@@ -239,14 +239,14 @@ Chuyển người nói ở cuối slide 10 (#1 → #2) và cuối slide 13 (#2 �
 **Trên slide**
 
 - **30** nhịp mô phỏng mỗi giây (cố định) · **20** ảnh trạng thái gửi mỗi giây
-- Mỗi nhịp xử lý tối đa **1 lệnh/người**, nên gửi nhiều lệnh cũng không chạy nhanh hơn
+- Mỗi nhịp cộng **1 lượt xử lý/người** (để dành tối đa 3): lệnh đến dồn vẫn bắt kịp, nhưng gửi nhiều lệnh cũng không chạy nhanh hơn
 - **TCP:** đăng nhập, ghép trận, kết quả quan trọng · **UDP:** lệnh, ảnh trạng thái
 
 **Hình:** dòng thời gian Client/Server. Client bấm D, mũi tên "Gửi lệnh" chéo lên server; server áp lệnh ở nhịp 41; mũi tên "Ảnh trạng thái" chéo về client, lúc đó nhân vật mới hiển thị. Chú thích "Chờ ≈ 1 RTT".
 
 **Lời nói**
 
-> Server chạy mô phỏng theo nhịp cố định, 30 nhịp mỗi giây, nên mô phỏng lặp lại được và hai bên có chung một đồng hồ là số nhịp. Mỗi nhịp server chỉ xử lý tối đa một lệnh cho mỗi người, nên gửi dồn dập cũng không chạy nhanh hơn.
+> Server chạy mô phỏng theo nhịp cố định, 30 nhịp mỗi giây, nên mô phỏng lặp lại được và hai bên có chung một đồng hồ là số nhịp. Mỗi nhịp server chỉ cộng cho mỗi người một lượt xử lý, để dành tối đa ba lượt. Lệnh đến dồn vì mạng không đều thì vẫn bắt kịp, nhưng trung bình không quá một lệnh mỗi nhịp, nên gửi dồn dập cũng không chạy nhanh hơn. Trong demo, client bị sửa gửi 60 lệnh một giây vẫn chỉ chạy đúng tốc độ tối đa.
 >
 > Dữ liệu chuyển động đi bằng UDP, vì vị trí cũ 200 mili giây thì gửi lại cũng vô ích. Đăng nhập và kết quả quan trọng đi bằng TCP, vì bắt buộc phải tới nơi.
 >
@@ -254,7 +254,8 @@ Chuyển người nói ở cuối slide 10 (#1 → #2) và cuối slide 13 (#2 �
 
 **Ghi chú**
 
-- Bị hỏi cơ chế bổ sung trên UDP (số thứ tự, xác nhận `lastProcessedSeq`, gửi dư 2–3 lệnh trước): mở D4, D5.
+- Bị hỏi cơ chế bổ sung trên UDP (số thứ tự, xác nhận `lastProcessedSeq`, gửi dư 3 lệnh trước): mở D4, D5.
+- Bị hỏi "hàng đợi trống sao không dùng lại lệnh trước?": dùng lại thì server đi thừa bước so với số lệnh client gửi, client bị kéo lệch liên tục; quỹ lượt giữ trạng thái server đúng bằng kết quả các lệnh đã nhận (D4).
 - **Chuyển người nói: #1 → #2.**
 
 ---
@@ -266,7 +267,7 @@ Chuyển người nói ở cuối slide 10 (#1 → #2) và cuối slide 13 (#2 �
 - Độ trễ điều khiển ≈ **RTT + tối đa 83 ms**. Với RTT 200 ms là **200–280 ms**
 - Các hướng: chờ server ○ · che bằng hoạt ảnh ◐ · **dự đoán phía client** ● (đã chọn)
 - Dự đoán: client **tự áp lệnh ngay**, server vẫn là người quyết định cuối
-- Điều kiện: **dùng chung code mô phỏng** `Simulation.step` (một file, chạy ở cả client và server)
+- Điều kiện: **dùng chung code mô phỏng** `Simulation.Step` (một file C#, chạy ở cả client và server)
 - Nhưng chỉ dự đoán thôi thì bị **giật ngược**
 
 **Hình:** "Giật ngược". Trục x: client dự đoán ở 2,0; ảnh trạng thái server báo x = 0,8; mũi tên đỏ "Ghi đè vị trí" kéo nhân vật lùi về 0,8. Chú thích "Ảnh cũ kéo nhân vật lùi lại".
@@ -275,7 +276,7 @@ Chuyển người nói ở cuối slide 10 (#1 → #2) và cuối slide 13 (#2 �
 
 > Với RTT 200 mili giây, mỗi lần bấm phím phải chờ 200 đến gần 300 mili giây. Gian lận đã bị chặn, nhưng game không chơi được.
 >
-> Có thể chấp nhận chờ, hoặc che bằng hoạt ảnh lấy đà, nhưng di chuyển bằng WASD cần phản hồi ngay. Nhóm em chọn dự đoán phía client. Hầu như lúc nào server cũng đồng ý với lệnh của mình, nên client cứ tự áp lệnh luôn, không chờ. Điều kiện là client phải tính ra đúng kết quả như server, nên hai bên dùng chung một hàm mô phỏng. Trong demo, đó là file `simulation.js` chạy chung cho server Node.js và trình duyệt; bản cuối dùng chung C# cho Unity và .NET.
+> Có thể chấp nhận chờ, hoặc che bằng hoạt ảnh lấy đà, nhưng di chuyển bằng WASD cần phản hồi ngay. Nhóm em chọn dự đoán phía client. Hầu như lúc nào server cũng đồng ý với lệnh của mình, nên client cứ tự áp lệnh luôn, không chờ. Điều kiện là client phải tính ra đúng kết quả như server, nên hai bên dùng chung một hàm mô phỏng. Trong demo, đó là file `Simulation.cs`, viết bằng C# thuần, không dùng thư viện Unity, nên client Unity và server .NET ở bản cuối dùng chung đúng một file.
 >
 > Nhưng nếu chỉ dự đoán thì có vấn đề. Ảnh trạng thái từ server phản ánh quá khứ. Client đang ở x bằng 2, server báo 0,8; ghi đè vào thì nhân vật bị kéo giật lùi. Hiện tượng này gọi là giật ngược.
 
@@ -289,10 +290,11 @@ Chuyển người nói ở cuối slide 10 (#1 → #2) và cuối slide 13 (#2 �
 2. Ảnh trạng thái kèm `lastProcessedSeq = N`
 3. Nhận ảnh: **đặt lại** theo server → **bỏ** lệnh ≤ N → **chạy lại** lệnh còn lại
 
-```js
-state = snap.me;
-pending = pending.filter(i => i.seq > snap.lastProcessedSeq);
-for (const i of pending) state = Simulation.step(state, i.keys, DT);
+```csharp
+Self.Pos = ServerSelf;                                    // (1) tin theo server
+_pending.RemoveAll(i => i.Seq <= s.LastProcessedSeq);     // (2) bỏ lệnh đã xác nhận
+foreach (var i in _pending)                               // (3) chạy lại lệnh còn chờ
+    Self = Simulation.Step(Self, i.Keys, Simulation.Dt);
 ```
 
 **Hình:** "Đối chiếu và chạy lại lệnh". Bộ đệm `[1 2 3 4 | 5 6 7 8 9 10]`, lệnh 1–4 bị gạch (đã xác nhận: bỏ), 5–10 chạy lại; `lastProcessedSeq = 4`; từ x = 0,8 chạy qua 6 lệnh được x = 2,0 ✓ (0,8 + 6 × 0,2 = 2,0).
@@ -303,9 +305,12 @@ for (const i of pending) state = Simulation.step(state, i.keys, DT);
 >
 > Ví dụ: client đã gửi 10 lệnh, mỗi lệnh đi 0,2 đơn vị, đang dự đoán ở x bằng 2. Server báo "x bằng 0,8, đã xử lý tới lệnh 4". Client đặt lại x bằng 0,8, bỏ lệnh 1 đến 4, chạy lại 6 lệnh còn lại, và được đúng 2,0. Người chơi không thấy gì.
 >
-> Chỉ khi dự đoán thật sự sai, ví dụ server thấy có va chạm mà client không biết, thì vị trí mới thay đổi; lệch nhỏ thì làm mượt trong vài khung hình. Trong demo, các bạn sẽ thấy số lệnh trong bộ đệm luôn xấp xỉ RTT chia độ dài một nhịp.
+> Chỉ khi dự đoán thật sự sai, ví dụ server thấy có va chạm mà client không biết, thì vị trí mới thay đổi; lệch nhỏ thì làm mượt trong vài khung hình. Trong demo, các bạn sẽ thấy bộ đệm luôn có khoảng 8 đến 9 lệnh. Đó chính là số lệnh mà client đang đi trước server: một RTT cộng thời gian chờ nhịp và chờ ảnh trạng thái.
 
-**Ghi chú:** đoạn code trên slide là code thật của demo (hàm xử lý ảnh trạng thái ở client).
+**Ghi chú**
+
+- Đoạn code trên slide là code thật của demo (hàm `OnSnapshot` trong `GameClient.cs`).
+- Ví dụ 10 lệnh / bỏ 4 / chạy lại 6 là số làm tròn cho dễ tính. Bị hỏi vì sao demo hiện 8–9 chứ không phải 6: ngoài RTT 200 ms còn chờ tới nhịp kế tiếp (0–33 ms) và tới lần gửi ảnh kế tiếp (0–50 ms).
 
 ---
 
@@ -432,7 +437,7 @@ for (const i of pending) state = Simulation.step(state, i.keys, DT);
 - Game 2 người, mỗi người là nhân viên siêu thị: **WASD** di chuyển, **J** nhặt / giao, **K** thả
 - **Món hàng hiếm** chỉ có 1 cái ở kệ giữa → tranh chấp → bù trễ + quay lui
 - Bản cuối: Unity (C#) + .NET server · TCP + UDP · SQLite
-- **Demo hôm nay:** server Node.js thật + trình duyệt qua WebSocket, mạng xấu giả lập, 3 khung nhìn
+- **Demo hôm nay:** Unity (C#), 1 server + 2 client nối qua mạng giả lập (độ trễ, dao động độ trễ, mất gói), 3 khung nhìn. Lõi kỹ thuật mạng là C# thuần, dùng lại nguyên cho server .NET ở bản cuối
 
 **Hình:** "Phác thảo siêu thị". Quầy A và quầy B ở hai góc trên, các kệ trái cây, rau củ, thịt cá, đồ uống, đồ khô, sữa và trứng; ở giữa là kệ "Món hàng hiếm · 1 cái" phát sáng, hai đường nét đứt từ A và B cùng chạy tới.
 
@@ -440,11 +445,12 @@ for (const i of pending) state = Simulation.step(state, i.keys, DT);
 
 > Nhóm em sẽ áp dụng các kỹ thuật này vào game xếp đơn hàng siêu thị cho 2 người. Game có di chuyển liên tục, nên cần dự đoán và nội suy. Món hàng hiếm chỉ có một cái, hai người phải tranh nhau, nên cần bù trễ và quay lui.
 >
-> Hôm nay nhóm em demo bản chứng minh ý tưởng cho phần di chuyển: server Node.js thật, trình duyệt kết nối qua WebSocket, còn mạng xấu được giả lập để thấy rõ hiệu ứng.
+> Hôm nay nhóm em demo bản chứng minh ý tưởng cho phần di chuyển, viết bằng Unity đúng như bản cuối. Một server và hai client chạy trên cùng máy, nối với nhau qua mạng giả lập để chỉnh được độ trễ, dao động độ trễ và mất gói ngay trên sân khấu.
 
 **Ghi chú**
 
-- Bị hỏi vì sao demo dùng JavaScript mà bản cuối dùng C#: demo cần làm nhanh và chạy ngay trên trình duyệt. Kỹ thuật netcode không phụ thuộc ngôn ngữ, và ý tưởng dùng chung code mô phỏng vẫn giữ nguyên (`simulation.js` ↔ `Simulation.Step`).
+- Bị hỏi vì sao chưa dùng socket thật: chạy trên cùng một máy thì RTT gần bằng 0, dù dùng socket nào cũng phải giả lập mới thấy được hiệu ứng. Lớp truyền tin là interface `ITransport`, bản cuối chỉ thay bằng UDP thật, code dự đoán / đối chiếu / nội suy giữ nguyên (D10).
+- Bị hỏi demo có chạy đúng không hay chỉ "trông đẹp": lõi netcode có bộ kiểm tra tự động, số đo khớp lý thuyết (mục 7.4 của `NoiDung_ChiTiet.md`).
 - Bảng tổng kết "năm vấn đề, năm đánh đổi" và câu chốt nằm ở slide 16, ngay trước phần này.
 
 ---
@@ -457,18 +463,22 @@ for (const i of pending) state = Simulation.step(state, i.keys, DT);
 - Thanh trượt: độ trễ · dao động độ trễ · mất gói · tần số gửi ảnh
 - 6 cảnh: 0 Client tự quyết · 1 Server quyết định · 2 Bật dự đoán · 3 Bật đối chiếu · 4 Ảnh thưa, chưa nội suy · 5 Bật nội suy
 
-**Cách chạy:** phím 0–5 chuyển ngay sang cấu hình của từng cảnh, không kéo thanh trượt trên sân khấu. Mỗi cảnh khoảng 45 giây.
+**Cách chạy:** mở sẵn `demo/T47Demo/Build/T47Demo.exe` trước khi lên trình bày (cửa sổ 1600 × 900, chiếu toàn màn hình). Phím 0–5 chuyển ngay sang cấu hình của từng cảnh, không kéo thanh trượt trên sân khấu, trừ hai chỗ ghi trong bảng. Mỗi cảnh khoảng 45 giây. #3 điều khiển A bằng WASD, #2 điều khiển B bằng phím mũi tên.
+
+**Cách đọc màn hình (nói một câu trước cảnh 0):** ô đặc là thứ người chơi nhìn thấy; viền trắng là "bóng", vị trí của mình theo server; chuỗi chấm là vết đối thủ; dưới mỗi khung là RTT đo được, số lệnh chờ xác nhận, khoảng bị kéo lệch.
 
 | Cảnh | Cấu hình | Thao tác | Lời dẫn |
 |---|---|---|---|
-| 0 | Client tự quyết, RTT 100 ms | Bấm nút "dịch chuyển" | "Đây là cách client tự quyết. Em giả lập sửa gói tin, ô của A nhảy sang đây, và server lẫn B đều chấp nhận." |
-| 1 | Server quyết định, RTT 200 ms, tắt hết | A chạy qua lại; bấm lại "dịch chuyển" | "Chuyển sang server quyết định: dịch chuyển hết tác dụng, khung server đếm số gói bị từ chối. Nhưng thầy để ý, em bấm phím khoảng 0,2 giây sau ô mới chạy." |
-| 2 | Bật dự đoán | Chạy rồi dừng đột ngột | "Bật dự đoán: phản hồi ngay. Nhưng khi dừng lại, ô bị kéo giật lùi, đó là giật ngược." |
-| 3 | Bật đối chiếu | Lặp lại | "Bật đối chiếu: mượt và khớp với bóng xám là vị trí theo server. Bộ đệm đang có khoảng 6 lệnh, đúng bằng RTT chia nhịp." |
-| 4 | Nhìn khung B; gửi ảnh 10 lần/giây, dao động 50 ms | A chạy vòng tròn | "Giờ nhìn sang màn hình của B: ô của A giật từng nấc vì ảnh trạng thái đến thưa và không đều." |
-| 5 | Bật nội suy (độ trễ nội suy tự tính ≈ 250 ms); sau đó tăng lên 20 lần/giây | Lặp lại | "Bật nội suy: mượt, nhưng so với khung server thì ô của A trễ hơn, đó là đánh đổi. Tăng tần số gửi ảnh lên 20 thì độ trễ giảm còn khoảng 150 mili giây." |
+| 0 | Client tự quyết, RTT 100 ms | Bấm **T** | "Đây là cách client tự quyết. Em giả lập sửa gói tin, ô của A nhảy sang đây, và server lẫn B đều chấp nhận." |
+| 1 | Server quyết định, RTT 200 ms, tắt hết | A chạy qua lại; bấm lại **T** | "Chuyển sang server quyết định: ô A nhảy đi rồi bị kéo về ngay, khung server đếm thêm một gói giả mạo bị bỏ. Nhưng thầy để ý, em bấm phím khoảng 0,2 giây sau ô mới chạy." |
+| 2 | Bật dự đoán; **kéo RTT lên 300–400 ms** cho rõ | Chạy rồi dừng đột ngột | "Bật dự đoán: phản hồi ngay. Nhưng ô cứ rung giật, vì mỗi ảnh trạng thái từ quá khứ lại kéo nó lùi về. Con số kéo lệch ở dưới khác 0, đó là giật ngược." |
+| 3 | Bật đối chiếu | Lặp lại | "Bật đối chiếu: mượt, kéo lệch bằng 0, và khi dừng thì ô khớp đúng viền trắng là vị trí theo server. Bộ đệm đang có khoảng 8–9 lệnh, đó là số lệnh client đang đi trước server." |
+| 4 | Nhìn khung B; gửi ảnh 10 lần/giây, dao động ±50 ms | A chạy vòng tròn | "Giờ nhìn sang màn hình của B: ô của A giật từng nấc, vết chấm thưa và không đều, vì ảnh trạng thái đến thưa và không đều." |
+| 5 | Bật nội suy (độ trễ tự tính 250 ms); sau đó **kéo tần số gửi ảnh lên 20** | Lặp lại | "Bật nội suy: vết chấm liền, chuyển động mượt, nhưng so với khung server thì ô của A trễ hơn, đó là đánh đổi. Tăng tần số gửi ảnh lên 20 thì độ trễ nội suy giảm còn 150 mili giây." |
 
-**Phương án dự phòng:** quay sẵn video toàn bộ 6 cảnh. Demo lỗi thì chuyển sang video ngay, không sửa lỗi trên sân khấu.
+**Nếu còn thời gian:** ở cảnh 3, kéo mất gói lên 10–20 %: nhân vật vẫn mượt, vì mỗi gói lệnh mang thêm 3 lệnh trước đó.
+
+**Phương án dự phòng:** quay sẵn video toàn bộ 6 cảnh. Demo lỗi thì chuyển sang video ngay, không sửa lỗi trên sân khấu. Khi tập một mình, chạy `T47Demo.exe -scene 4 -autoplay` để A tự chạy vòng tròn. Ảnh màn hình cho slide lấy bằng `T47Demo.exe -scene N -autoplay -screenshot anh.png`.
 
 ---
 
@@ -496,17 +506,19 @@ Slide 21 là slide mở đầu phụ lục ("PHỤ LỤC · Slide dự phòng ch
 | 23 · D1 | Thành phần của độ trễ: lan truyền, truyền, xếp hàng, xử lý | "Độ trễ đến từ đâu, giảm được không?" | Mục 2.1 |
 | 24 · D2 | TCP chi tiết: thời gian chờ gửi lại, thuật toán Nagle | "Sao không dùng TCP cho tất cả, tắt Nagle là xong?" | Mục 2.3 |
 | 25 · D3 | Bộ tích luỹ thời gian; tần số mô phỏng và tần số gửi ảnh | "Chọn 30 nhịp/giây thế nào? Client 144 Hz thì sao?" | VĐ1 |
-| 26 · D4 | Hàng đợi lệnh ở server: thiếu lệnh, dồn lệnh, chống hack tốc độ | "Lệnh đến không đều thì server làm gì?" | VĐ1 |
+| 26 · D4 | Hàng đợi lệnh ở server: quỹ lượt (1 lượt/nhịp, để dành tối đa 3), thiếu lệnh, dồn lệnh, chống hack tốc độ; vì sao không dùng lại lệnh trước | "Lệnh đến không đều thì server làm gì?" | VĐ1 |
 | 27 · D5 | Bảng giao thức: `INPUT`, `SNAPSHOT`, `ITEM_*` | "Định dạng gói tin thế nào?" | Mục 5 |
 | 28 · D6 | Chọn độ trễ nội suy: bảng theo tần số gửi ảnh, ngoại suy dự phòng | "Độ trễ nội suy chọn bao nhiêu? Mất nhiều gói thì sao?" | VĐ3 |
 | 29 · D7 | Phân xử món hàng hiếm: cửa sổ phân xử, kiểm tra số nhịp giả | "Hai người cùng nhặt thì xử thế nào? Gửi nhịp giả thì sao?" | VĐ4 |
 | 30 · D8 | Các nguồn phá tính tất định: số thực, thứ tự duyệt, số ngẫu nhiên | "Tính tất định ảnh hưởng thế nào?" | VĐ5 |
 | 31 · D9 | Đồng bộ theo bước / GGPO so với mô hình của nhóm | "Sao không làm ngang hàng?" | VĐ1, VĐ5 |
-| 32 · D10 | Mạng giả lập: `netsim.js` (độ trễ, dao động độ trễ, mất gói); WebSocket vì trình duyệt không mở được UDP | "Demo có phản ánh mạng thật không?" | Mục 7.2 |
+| 32 · D10 | Mạng giả lập: `ITransport`, `SimulatedTransport` (độ trễ, dao động độ trễ, mất gói, sai thứ tự); bảng kết quả kiểm tra tự động | "Demo có phản ánh mạng thật không? Có chạy đúng không?" | Mục 7.2, 7.4 |
 
 ### Ý chính D10
 
-Đã có trong ghi chú slide 32. demo dùng server Node.js và WebSocket thật. Trình duyệt không mở được socket UDP, nên kênh là TCP; độ trễ, dao động độ trễ và mất gói được giả lập ở server (`netsim.js`) cho từng chiều của từng kết nối, mỗi gói trễ ngẫu nhiên nên có thể đến sai thứ tự giống UDP. Chạy trên cùng một máy thì RTT ≈ 0, nên dù dùng socket nào cũng phải giả lập thì mới thấy được hiệu ứng. Bản cuối thay bằng UDP thật; code kỹ thuật netcode không đổi.
+Demo chạy 1 server và 2 client trong cùng một tiến trình Unity, nối với nhau qua interface `ITransport`. Bản demo dùng `SimulatedTransport`: mỗi chiều của mỗi kết nối có hàng đợi riêng; khi gửi thì bỏ gói theo tỉ lệ mất gói, nếu không thì hẹn giờ giao `now + RTT/2 ± dao động`. Mỗi gói trễ ngẫu nhiên nên có thể đến sai thứ tự, giống UDP. Chạy trên cùng một máy thì RTT ≈ 0, nên dù dùng socket nào cũng phải giả lập mới thấy được hiệu ứng. Bản cuối thay bằng `UdpTransport`; code dự đoán, đối chiếu, nội suy không đổi.
+
+Bằng chứng demo chạy đúng: bộ kiểm tra tự động (`demo/NetcodeTests`) đo được không dự đoán thì trễ 233 ms ở RTT 200 ms; có đối chiếu thì sai lệch 0; nội suy giảm bước nhảy mỗi khung hình từ 1,00 xuống 0,17 đơn vị, độ trễ hình ảnh đối thủ 350 ms đúng bằng RTT/2 + độ trễ nội suy; client gửi 60 lệnh/giây vẫn chỉ chạy đúng tốc độ tối đa.
 
 ---
 

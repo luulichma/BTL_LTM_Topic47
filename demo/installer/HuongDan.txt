@@ -1,0 +1,32 @@
+﻿T47 DEMO - KỸ THUẬT MẠNG CHO GAME THỜI GIAN THỰC
+Demo sơ bộ: dự đoán phía client, đối chiếu với server, nội suy thực thể.
+1 server + 2 client chạy trong cùng một chương trình, nối qua mạng giả lập.
+
+MÀN HÌNH
+  Ba khung: Client A | Server (sự thật) | Client B.
+  Ô đặc      = hình người chơi đó nhìn thấy.
+  Viền trắng = "bóng": vị trí của mình theo server.
+  Chuỗi chấm = vết đối thủ (chấm thưa = nhảy cóc, chấm liền = mượt).
+
+PHÍM
+  WASD          di chuyển người A
+  Phím mũi tên  di chuyển người B
+  0 - 5         chuyển sang cảnh demo tương ứng
+  T             client A gửi gói vị trí giả mạo (dịch chuyển)
+  F1            đổi chế độ: client tự quyết <-> server quyết định
+  F2 / F3 / F4  bật/tắt dự đoán / đối chiếu / nội suy
+  F5            đặt lại vị trí
+  Thanh trượt   RTT, dao động độ trễ, mất gói, tần số gửi ảnh trạng thái
+
+KỊCH BẢN
+  0  Client tự quyết, RTT 100 ms     bấm T: server và B đều chấp nhận
+  1  Server quyết định, RTT 200 ms   T hết tác dụng, nhưng điều khiển trễ ~0,2 s
+  2  + dự đoán                        phản hồi ngay nhưng giật ngược
+  3  + đối chiếu                      mượt, khớp bóng server; lệnh chờ 8-9
+  4  10 ảnh/giây, dao động ±50 ms     ô A trong mắt B nhảy từng nấc
+  5  + nội suy                        mượt nhưng trễ 250 ms (150 ms ở 20 ảnh/giây)
+
+THAM SỐ DÒNG LỆNH (T47Demo.exe ...)
+  -scene N               mở sẵn cảnh N
+  -autoplay              A tự chạy vòng tròn khi không bấm phím
+  -screenshot anh.png    chụp màn hình sau 4 giây rồi thoát
