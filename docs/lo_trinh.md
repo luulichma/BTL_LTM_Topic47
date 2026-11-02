@@ -1,6 +1,7 @@
 # Lộ trình T47 - Real-time Multiplayer (Client Prediction)
 
-> Lộ trình làm sản phẩm từ **02/11/2026** tới hạn nộp **09/11/2026**: ngày 09/11 mọi thứ phải xong và nộp.
+> Lộ trình làm sản phẩm từ **02/11/2026**. Hạn nộp chính thức **10/11/2026**; nhóm tự đặt **09/11** là xong hết và nộp,
+> giữ 10/11 làm ngày dự phòng (chỉ sửa lỗi gấp, không thêm gì).
 > Chi tiết từng đầu việc nằm trong [`chi-tiet/`](chi-tiet/README.md). Mã việc (S/C/G/R/T) theo file phân công
 > `T47_YTuongDemo_PhanCong.docx`. Repo code: `int1433-05-20261-grp-int1433-05-0005`.
 > Cập nhật file này sau mỗi buổi họp: đánh dấu `[x]` khi xong, ghi lý do nếu trễ.
@@ -21,6 +22,28 @@
 
 ---
 
+## 1b. Hai sản phẩm khác nhau, ưu tiên theo điểm
+
+- **Repo classroom** (`int1433-05-...`) là thứ **được chấm** theo rubric INSTRUCTION.md. Phát triển gần như riêng với
+  bản demo; cái gì từ demo áp sang được thì áp.
+- **Demo thuyết trình (simulation) đã xong**, không nằm trong lộ trình này.
+
+Điểm mỗi người = A (3, nhóm) + B (3, nhóm) + C (4, **cá nhân**). Thứ tự ưu tiên khi thiếu thời gian:
+
+| Ưu tiên | Tiêu chí | Điểm | Rẻ hay đắt | Việc tương ứng |
+| :-: | --- | :-: | --- | --- |
+| 1 | C - Vấn đáp (mỗi người) | 4.0 | Rẻ nếu tự viết/tự hiểu code | Mỗi người tự commit phần mình, đọc lại từng dòng, luyện "sửa nhanh tại chỗ" (đổi max frame size, thêm 1 lệnh) |
+| 2 | A2 + A3 - Protocol & Architecture | 2.0 | **Rẻ nhất** (chỉ là tài liệu) | `protocol-design.md`: framing, bảng lệnh, status code, sequence diagram, **vì sao** TCP+UDP; `architecture.md`: mô hình đồng thời, mọi shared state + cách khoá, vòng đời kết nối (lấy từ Q1-Q9) |
+| 3 | B1 - Đồng thời & chịu lỗi | 1.5 | Trung bình | R3 + bot R2: nhiều client, kill -9, dữ liệu rác, im lặng → server không sập, giải phóng socket |
+| 4 | A1 - Problem & Idea | 1.0 | Rẻ | `proposal.md` có so sánh phương án (relay vs authoritative) |
+| 5 | B2 - Features | 1.0 | Đắt | Chỉ tính tính năng **có test thật** trong `testing-guide.md`; ít mà chắc hơn nhiều mà dở |
+| 6 | B3 - Hygiene | 0.5 | Rẻ | Clone sạch → `docker compose up --build` chạy; `.env`; lịch sử commit đều, mỗi người một tài khoản |
+
+Hệ quả: tài liệu thiết kế, chịu lỗi và việc **mỗi người hiểu phần mình** quan trọng hơn cảnh demo đẹp. Không ai nhận
+phần mình không giải thích được (không giải thích được thì mất điểm cả B lẫn C).
+
+---
+
 ## 2. Các mốc bắt buộc
 
 Chỉ có **7 ngày**, nên mỗi ngày là một mốc. Deadline là **cuối ngày (23:00)**, đã gộp vào `main`.
@@ -37,6 +60,7 @@ Chỉ có **7 ngày**, nên mỗi ngày là một mốc. Deadline là **cuối n
 | **09/11** | **M3 - Nộp** | Clone sạch → `docker compose up --build` → demo; AI Disclosure, Contribution, `ai-log.md`; tổng duyệt; **nộp** | Cả nhóm |
 
 > Sau 08/11 chỉ sửa lỗi, không thêm tính năng. Ngày 09/11 dành cho kiểm tra cuối, tổng duyệt và nộp.
+> 10/11 là hạn chính thức (commit cuối trên `main` của repo classroom): chỉ dùng nếu 09/11 phát hiện lỗi chặn.
 
 ---
 
