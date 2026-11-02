@@ -1,11 +1,31 @@
-# Quyết định thiết kế Q1-Q9 (đã chốt theo đề xuất, 02/11)
+# Quyết định thiết kế Q1-Q10 (đã chốt chính thức theo đề xuất, 02/11)
 
-| Người làm | Deadline | Ghi vào repo code |
-| --- | :-: | --- |
-| #1 chép vào docs; mỗi người đọc kỹ câu thuộc phần mình | 02/11 (tối) | `docs/architecture.md` (Q1, Q5, Q6, Q8), `docs/protocol-design.md` (Q2, Q3, Q4, Q7, Q9) |
+## Bảng phân việc viết vào repo classroom
 
-Q1-Q9 là 9 lựa chọn thiết kế mà code của cả nhóm phụ thuộc vào, và là câu **chắc chắn bị hỏi khi vấn đáp**.
-Dưới đây là phương án đã chọn kèm lý do và đánh đổi. Nếu ai thấy không ổn thì báo trong tối 02/11; sau đó coi như chốt.
+Mỗi câu do **người phải giải thích nó khi vấn đáp** tự viết vào tài liệu (viết bằng lời của mình = đã luyện vấn đáp);
+#1 duyệt để văn phong và thuật ngữ thống nhất. Viết theo khuôn: **Chốt / Các phương án đã cân nhắc / Vì sao / Đánh đổi**.
+
+| # | Ghi vào (repo classroom) | Mục | Người viết | Người duyệt | Deadline | Đi cùng việc |
+| :-: | --- | --- | --- | --- | :-: | --- |
+| Q2 | `docs/protocol-design.md` | Framing | #1 | #2 | 03/11 | S2 |
+| Q3 | `docs/protocol-design.md` | Message format | #1 | #2 | 03/11 | S2 |
+| Q4 | `docs/protocol-design.md` | UDP header, session | #1 | #2 | 03/11 | S2 |
+| + | `docs/protocol-design.md` | **Vì sao TCP + UDP**, **stateful vs stateless** (A2 bắt buộc, không thuộc Q nào) | #1 | #2 | 03/11 | S2 |
+| Q9 | `docs/protocol-design.md` | Login / bảo mật mật khẩu | #1 | #3 | 04/11 | S3 |
+| Q1 | `docs/architecture.md` | Concurrency model, shared state | #1 | #2 | 04/11 (M2) | S1, S5 |
+| Q5 | `docs/architecture.md` | Thư viện dùng chung | #2 (phía Unity/prediction), #1 (phía server/Docker) | #1 | 04/11 (M2) | C1 |
+| Q8 | `docs/architecture.md` | Connection lifecycle, rớt mạng | #1 | #3 | 06/11 | R3 |
+| Q6 | `docs/architecture.md` | Network simulator | #3 | #2 | 06/11 | G7 |
+| Q7 | `docs/protocol-design.md` (trường `viewTick`) + `docs/architecture.md` (lag compensation) | Lag compensation | #3 (cơ chế), #1 (phía server) | #1 | 07/11 | G5 |
+| Q10 | `docs/architecture.md` (triển khai) + README §5 + `docs/testing-guide.md` (test 2 máy LAN) | Deployment | #1 | #2 | 08/11 | M3 |
+
+- Bản cuối của cả hai file (khớp với code) do #1 rà lại ngày **08/11**.
+- Mỗi người viết xong phần mình thì ghi một dòng vào `docs/ai-log.md` nếu có dùng AI.
+
+---
+
+Q1-Q10 là 10 lựa chọn thiết kế mà code của cả nhóm phụ thuộc vào, và là câu **chắc chắn bị hỏi khi vấn đáp**.
+Dưới đây là phương án đã chọn kèm lý do và đánh đổi. **Cả 10 câu đã chốt theo đề xuất (02/11)**; muốn đổi phải báo cả nhóm và sửa file này cùng tài liệu repo code.
 Người ở cột "Phải giải thích được" cần tự nói lại được phần **Vì sao** và **Đánh đổi** bằng lời của mình.
 
 ## Tóm tắt
@@ -21,6 +41,7 @@ Người ở cột "Phải giải thích được" cần tự nói lại đượ
 | Q7 | Lag compensation tua về thời điểm nào? | **`viewTick`** (tick client đang nhìn thấy), tua tối đa **30 tick** | #3, #1 |
 | Q8 | Một người rớt mạng giữa trận? | **Xử thua ngay**, không reconnect | #1 |
 | Q9 | Lưu mật khẩu thế nào? | **PBKDF2-SHA256**, salt 16 byte, 100.000 vòng | #1 |
+| Q10 | Demo vấn đáp chạy trên mấy máy? | **2 máy qua mạng LAN**: máy A chạy server (Docker) + 1 client, máy B chạy client | #1 (mạng), cả nhóm |
 
 ---
 
@@ -124,9 +145,32 @@ Người ở cột "Phải giải thích được" cần tự nói lại đượ
 - **Đánh đổi:** mỗi lần login tốn vài chục ms CPU (chấp nhận được). Mật khẩu vẫn đi trên TCP không mã hoá - ghi rõ là
   giới hạn của đề tài (không làm TLS).
 
+## Q10 - Demo trên 2 máy qua LAN
+
+- **Câu hỏi:** khi demo và vấn đáp, chạy tất cả trên một laptop hay qua mạng thật?
+- **Các phương án:** 1 máy (server + 2 client cùng `localhost`); 2 máy qua LAN.
+- **Chốt:** **2 máy qua LAN.**
+  - Máy A: `docker compose up --build` chạy server (cổng `5000/tcp`, `5001/udp`), thêm 1 client.
+  - Máy B: client trỏ `HOST` = IP LAN của máy A (lấy bằng `ipconfig`), đọc từ cấu hình/`.env`, không hard-code.
+  - Bộ mô phỏng mạng (Q6) vẫn giữ: LAN trễ dưới 1 ms nên phải thêm trễ/mất gói giả lập mới thấy được tác dụng của
+    prediction, reconciliation, interpolation.
+- **Vì sao:** chứng minh đúng tinh thần đề: client và server là hai chương trình độc lập, giao tiếp qua mạng thật,
+  không có địa chỉ hard-code; server bind `0.0.0.0` trong container mới nhận được kết nối từ máy khác; UDP thật đi qua
+  NAT của Docker (đúng lý do Q4 phải học endpoint từ gói thật).
+- **Đánh đổi / rủi ro và cách phòng:**
+  - Wi-Fi trường thường chặn các máy nói chuyện với nhau (client isolation) → mang **router riêng hoặc phát hotspot
+    điện thoại**, hoặc nối dây LAN; thử trước tại nhà.
+  - Windows Firewall chặn cổng vào → mở inbound `5000/tcp` và `5001/udp` trên máy A (hoặc cho phép Docker Desktop
+    khi Windows hỏi). Ghi các bước vào README §5.
+  - IP máy A đổi mỗi lần vào mạng → bước đầu tiên khi demo là `ipconfig` rồi sửa `HOST` ở máy B.
+  - Phương án dự phòng: nếu mạng hỏng tại chỗ, chạy 2 client trên máy A với `HOST=localhost` và nói rõ lý do.
+- **Phải tập trước 09/11:** chạy trọn kịch bản demo trên 2 máy ít nhất 1 lần, thêm test "2 máy LAN" vào
+  `testing-guide.md` với log thật.
+
 ---
 
 ## Xong khi
 
-- [ ] Cả nhóm đã đọc, không ai phản đối trong tối 02/11.
-- [ ] #1 đã chép phần "Chốt / Vì sao / Đánh đổi" vào mục Design Decisions của `architecture.md` và `protocol-design.md`.
+- [x] Chốt Q1-Q10 theo đề xuất (02/11).
+- [ ] Mọi dòng trong "Bảng phân việc viết" đã vào `main` của repo classroom đúng deadline, có người duyệt.
+- [ ] #1 rà bản cuối `architecture.md` và `protocol-design.md` khớp code (08/11).

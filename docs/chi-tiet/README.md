@@ -1,6 +1,6 @@
 # Chi tiết đầu việc T47
 
-Mỗi file là một đầu việc (thường = một nhánh git). Lịch tổng và deadline: [`../lo_trinh.md`](../lo_trinh.md).
+Mỗi file là một đầu việc (thường = một nhánh git). Lịch tổng và deadline: [`lo_trinh.md`](lo_trinh.md).
 
 Mỗi file có cùng khung: **thông tin** (người làm, nhánh, deadline, phụ thuộc) → **mục tiêu** → **các bước** (checklist)
 → **xong khi** → **lưu ý** → **chuẩn bị vấn đáp**. Đánh dấu `[x]` ngay trong file khi làm xong từng bước.
@@ -13,7 +13,7 @@ Mỗi file có cùng khung: **thông tin** (người làm, nhánh, deadline, ph�
 | File | Việc | Làm chủ | Deadline |
 | --- | --- | --- | :-: |
 | [01-t1-khung-repo.md](chung/01-t1-khung-repo.md) | T1 khung repo, `shared/`, solution | #1 | 02/11 |
-| [02-quyet-dinh-thiet-ke.md](chung/02-quyet-dinh-thiet-ke.md) | Chốt Q1-Q9 | Cả nhóm | 02/11 |
+| [02-quyet-dinh-thiet-ke.md](chung/02-quyet-dinh-thiet-ke.md) | Chốt Q1-Q10 | Cả nhóm | 02/11 |
 | [03-m1-proposal.md](chung/03-m1-proposal.md) | M1 `proposal.md` | #1 | 03/11 |
 | [04-t2-t5-t6-thuyet-trinh.md](chung/04-t2-t5-t6-thuyet-trinh.md) | Slide, Q&A, tập thuyết trình | #1 ghép | 08/11-09/11 |
 | [05-m3-nop-bai.md](chung/05-m3-nop-bai.md) | M3 nộp bài, AI Disclosure, Contribution | Cả nhóm | 09/11 |

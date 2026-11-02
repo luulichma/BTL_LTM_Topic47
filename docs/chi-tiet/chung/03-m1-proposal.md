@@ -2,7 +2,7 @@
 
 | Người làm | Nhánh | Deadline | Phụ thuộc |
 | --- | --- | :-: | --- |
-| #1 viết, #2 #3 đọc duyệt | `docs/m1-proposal` | 03/11 | Q1-Q9 |
+| #1 viết, #2 #3 đọc duyệt | `docs/m1-proposal` | 03/11 | Q1-Q10 |
 
 ## Mục tiêu
 
