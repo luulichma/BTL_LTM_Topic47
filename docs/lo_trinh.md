@@ -1,7 +1,7 @@
 # Lộ trình T47 - Real-time Multiplayer (Client Prediction)
 
-> Lộ trình làm sản phẩm từ **02/11/2026**. Hạn nộp chính thức **10/11/2026**; nhóm tự đặt **09/11** là xong hết và nộp,
-> giữ 10/11 làm ngày dự phòng (chỉ sửa lỗi gấp, không thêm gì).
+> Lộ trình làm sản phẩm từ **02/11/2026**. **10/11/2026 là ngày vấn đáp**, nên **09/11** mọi thứ phải xong và nộp
+> (commit cuối trên `main` của repo classroom).
 > Chi tiết từng đầu việc nằm trong [`chi-tiet/`](chi-tiet/README.md). Mã việc (S/C/G/R/T) theo file phân công
 > `T47_YTuongDemo_PhanCong.docx`. Repo code: `int1433-05-20261-grp-int1433-05-0005`.
 > Cập nhật file này sau mỗi buổi họp: đánh dấu `[x]` khi xong, ghi lý do nếu trễ.
@@ -60,7 +60,7 @@ Chỉ có **7 ngày**, nên mỗi ngày là một mốc. Deadline là **cuối n
 | **09/11** | **M3 - Nộp** | Clone sạch → `docker compose up --build` → demo; AI Disclosure, Contribution, `ai-log.md`; tổng duyệt; **nộp** | Cả nhóm |
 
 > Sau 08/11 chỉ sửa lỗi, không thêm tính năng. Ngày 09/11 dành cho kiểm tra cuối, tổng duyệt và nộp.
-> 10/11 là hạn chính thức (commit cuối trên `main` của repo classroom): chỉ dùng nếu 09/11 phát hiện lỗi chặn.
+> 10/11 là ngày vấn đáp: không sửa code nữa, chỉ demo từ bản đã nộp và trả lời câu hỏi.
 
 ---
 
