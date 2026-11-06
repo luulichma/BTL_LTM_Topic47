@@ -21,9 +21,19 @@ khi nhận SNAPSHOT(serverTick, lastProcessedSeq = k, myState = S):
 
 ## Các bước
 
-- [ ] Cài thuật toán trên; bỏ qua snapshot cũ hơn snapshot đã xử lý (UDP có thể tới sai thứ tự).
-- [ ] Công tắc `Reconciliation` trên Network Panel: tắt → chỉ predict, không bao giờ sửa (cảnh 3 lệch dần).
-- [ ] Log/overlay: sai số mỗi lần reconcile (dùng cho T4).
+- [x] Cài thuật toán trên; bỏ qua snapshot cũ hơn snapshot đã xử lý (UDP có thể tới sai thứ tự).
+- [x] Công tắc `Reconciliation` trên Network Panel: tắt → chỉ predict, không bao giờ sửa (cảnh 3 lệch dần).
+  Hiện đặt trên overlay `GameController`; chuyển sang Network Panel khi làm G8.
+- [x] Log/overlay: sai số mỗi lần reconcile (dùng cho T4).
+
+## Tiến độ
+
+- **06/11:** xong, nhánh `feature/c5-reconciliation` (`26553e1`) đã merge vào `main` (`87b2bf4`).
+  Kèm sửa va chạm cạnh/góc vật cản trong `Simulation.Step` (`ContactTolerance` 0.001 m, `3b553db`) và DLL shared
+  build lại sau merge. `dotnet test T47.sln` sau merge: 140 shared + 29 server pass.
+- Đã thử trên Unity (#2): đi thẳng không va chạm, sai số reconcile ≈ 0.
+- **Chưa kiểm chứng:** cảnh 4 (va chạm rồi tự về đúng chỗ) sau khi sửa va chạm; chạy Unity trên `main` sau merge
+  (có G3 đồng bộ đơn trong SNAPSHOT).
 
 ## Xong khi
 

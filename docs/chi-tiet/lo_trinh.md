@@ -78,7 +78,7 @@ Chỉ có **7 ngày**, nên mỗi ngày là một mốc. Deadline là **cuối n
 | 5 | S5 tick 30 Hz + S6 SNAPSHOT | `feature/s5-s6-tick-snapshot` | 05/11 | [vai-1/04](vai-1-server/04-s5-s6-tick-snapshot.md) | [ ] |
 | 6 | R3 xử lý lỗi | `feature/r3-error-handling` | 06/11 | [vai-1/05](vai-1-server/05-r3-xu-ly-loi.md) | [ ] |
 | 7 | S7 naive relay + R5 `DEMO_CONFIG` | `feature/s7-r5-naive-relay-demo-config` | 06/11 | [vai-1/07](vai-1-server/07-s7-r5-naive-relay-demo-config.md) | [ ] |
-| 8 | Hỗ trợ #3: server phần G3 | `feature/g3-server-validation` | 06/11 | [vai-1/09](vai-1-server/09-ho-tro-g3-g5.md) | [ ] |
+| 8 | Hỗ trợ #3: server phần G3 | `feature/g3-server-validation` | 06/11 | [vai-1/09](vai-1-server/09-ho-tro-g3-g5.md) | [x] 06/11, đã vào `main` (`8490442`) |
 | 9 | R2 bot client (cùng #2) | `feature/r2-bot-client` | 07/11 | [vai-1/08](vai-1-server/08-r2-bot-client.md) | [ ] |
 | 10 | S8 kết thúc trận, MATCH_END | `feature/s8-match-end` | 07/11 | [vai-1/10](vai-1-server/10-s8-ket-thuc-tran.md) | [ ] |
 | 11 | Hỗ trợ #3: server phần G5 (cảnh 6) | `feature/g5-server-lag-comp` | 08/11 (trưa) | [vai-1/09](vai-1-server/09-ho-tro-g3-g5.md) | [ ] |
@@ -92,8 +92,8 @@ Chỉ có **7 ngày**, nên mỗi ngày là một mốc. Deadline là **cuối n
 | 1 | C1 shared simulation + unit test tất định | `feature/c1-shared-simulation` | 03/11 | [vai-2/01](vai-2-client-netcode/01-c1-shared-simulation.md) | [ ] |
 | 2 | C2 Unity: login, kết nối TCP, ghép trận | `feature/c2-unity-login` | 04/11 (login), 05/11 (vào trận) | [vai-2/02](vai-2-client-netcode/02-c2-unity-login.md) | [ ] |
 | 3 | C3 gửi INPUT qua UDP | `feature/c3-input-udp` | 05/11 | [vai-2/03](vai-2-client-netcode/03-c3-input-udp.md) | [ ] |
-| 4 | C4 client-side prediction | `feature/c4-prediction` | 06/11 | [vai-2/04](vai-2-client-netcode/04-c4-prediction.md) | [ ] |
-| 5 | C5 server reconciliation | `feature/c5-reconciliation` | 06/11 | [vai-2/05](vai-2-client-netcode/05-c5-reconciliation.md) | [ ] |
+| 4 | C4 client-side prediction | `feature/c4-prediction` | 06/11 | [vai-2/04](vai-2-client-netcode/04-c4-prediction.md) | [x] 06/11, đã merge `main` (cùng C5) |
+| 5 | C5 server reconciliation | `feature/c5-reconciliation` | 06/11 | [vai-2/05](vai-2-client-netcode/05-c5-reconciliation.md) | [x] 06/11, đã merge `main` (`87b2bf4`) |
 | 6 | C6 entity interpolation | `feature/c6-interpolation` | 07/11 | [vai-2/06](vai-2-client-netcode/06-c6-interpolation.md) | [ ] |
 | 7 | R2 bot client (cùng #1) | `feature/r2-bot-client` | 07/11 | [vai-1/08](vai-1-server/08-r2-bot-client.md) | [ ] |
 | 8 | T4 đo đạc + test số 6, 8 | `feature/t4-metrics` | 08/11 | [vai-2/07](vai-2-client-netcode/07-t4-do-dac.md) | [ ] |
