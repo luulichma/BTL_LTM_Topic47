@@ -70,57 +70,57 @@ Chỉ có **7 ngày**, nên mỗi ngày là một mốc. Deadline là **cuối n
 
 | # | Việc | Nhánh | Deadline | Chi tiết | Xong |
 | :-: | --- | --- | :-: | --- | :-: |
-| 0 | T1 khung repo; chép Q1-Q10 vào docs | `chore/t1-repo-skeleton` | 02/11 | [chung/01](chung/01-t1-khung-repo.md), [chung/02](chung/02-quyet-dinh-thiet-ke.md) | [ ] |
-| 1 | M1 proposal | `docs/m1-proposal` | 03/11 | [chung/03](chung/03-m1-proposal.md) | [ ] |
-| 2 | S2 protocol + `protocol-design.md` | `feature/s2-protocol` | 03/11 | [vai-1/01](vai-1-server/01-s2-protocol.md) | [ ] |
-| 3 | S1 TCP server + R1 Docker | `feature/s1-tcp-server` | 04/11 | [vai-1/02](vai-1-server/02-s1-r1-tcp-server-docker.md) | [ ] |
-| 4 | S3 login SQLite (+ S4 ghép trận) | `feature/s3-s4-login-matchmaking` | 04/11 (S3), 05/11 (S4) | [vai-1/03](vai-1-server/03-s3-s4-login-ghep-tran.md) | [ ] |
-| 5 | S5 tick 30 Hz + S6 SNAPSHOT | `feature/s5-s6-tick-snapshot` | 05/11 | [vai-1/04](vai-1-server/04-s5-s6-tick-snapshot.md) | [ ] |
-| 6 | R3 xử lý lỗi | `feature/r3-error-handling` | 06/11 | [vai-1/05](vai-1-server/05-r3-xu-ly-loi.md) | [ ] |
-| 7 | S7 naive relay + R5 `DEMO_CONFIG` | `feature/s7-r5-naive-relay-demo-config` | 06/11 | [vai-1/07](vai-1-server/07-s7-r5-naive-relay-demo-config.md) | [ ] |
+| 0 | T1 khung repo; chép Q1-Q10 vào docs | `chore/t1-repo-skeleton` | 02/11 | [chung/01](chung/01-t1-khung-repo.md), [chung/02](chung/02-quyet-dinh-thiet-ke.md) | [x] `d057abd` |
+| 1 | M1 proposal | `docs/m1-proposal` | 03/11 | [chung/03](chung/03-m1-proposal.md) | [x] `docs/proposal.md` viết 07/11 (`987664d`); không tag `m1` |
+| 2 | S2 protocol + `protocol-design.md` | `feature/s2-protocol` | 03/11 | [vai-1/01](vai-1-server/01-s2-protocol.md) | [x] `33fe40b` |
+| 3 | S1 TCP server + R1 Docker | `feature/s1-tcp-server` | 04/11 | [vai-1/02](vai-1-server/02-s1-r1-tcp-server-docker.md) | [x] `f917f83`; `docker compose up --build` chạy thật 07/11 |
+| 4 | S3 login SQLite (+ S4 ghép trận) | `feature/s3-s4-login-matchmaking` | 04/11 (S3), 05/11 (S4) | [vai-1/03](vai-1-server/03-s3-s4-login-ghep-tran.md) | [x] `f917f83` |
+| 5 | S5 tick 30 Hz + S6 SNAPSHOT | `feature/s5-s6-tick-snapshot` | 05/11 | [vai-1/04](vai-1-server/04-s5-s6-tick-snapshot.md) | [x] `f917f83` |
+| 6 | R3 xử lý lỗi | `feature/r3-error-handling` | 06/11 | [vai-1/05](vai-1-server/05-r3-xu-ly-loi.md) | [x] code từ `f917f83`; bằng chứng trong Docker 07/11 (`d068d37`, testing-guide §2.0c) |
+| 7 | S7 naive relay + R5 `DEMO_CONFIG` | `feature/s7-r5-naive-relay-demo-config` | 06/11 | [vai-1/07](vai-1-server/07-s7-r5-naive-relay-demo-config.md) | [x] server 07/11 (`d2c97ab`), kiểm bằng test tích hợp; phần Unity cảnh 1-2 đã cắt |
 | 8 | Hỗ trợ #3: server phần G3 | `feature/g3-server-validation` | 06/11 | [vai-1/09](vai-1-server/09-ho-tro-g3-g5.md) | [x] 06/11, đã vào `main` (`8490442`) |
-| 9 | R2 bot client (cùng #2) | `feature/r2-bot-client` | 07/11 | [vai-1/08](vai-1-server/08-r2-bot-client.md) | [ ] |
-| 10 | S8 kết thúc trận, MATCH_END | `feature/s8-match-end` | 07/11 | [vai-1/10](vai-1-server/10-s8-ket-thuc-tran.md) | [ ] |
-| 11 | Hỗ trợ #3: server phần G5 (cảnh 6) | `feature/g5-server-lag-comp` | 08/11 (trưa) | [vai-1/09](vai-1-server/09-ho-tro-g3-g5.md) | [ ] |
-| 12 | `architecture.md` (bản đầu 04/11, bản cuối 08/11) | `docs/architecture` | 04/11 → 08/11 | [vai-1/06](vai-1-server/06-architecture.md) | [ ] |
-| 13 | Chạy test số 1-5, 10 | (cùng `test/r4-test-evidence`) | 08/11 | [vai-3/07](vai-3-gameplay-demo/07-r4-test-evidence.md) | [ ] |
+| 9 | R2 bot client (cùng #2) | `feature/r2-bot-client` | 07/11 | [vai-1/08](vai-1-server/08-r2-bot-client.md) | [x] 07/11 (`36530ac`), 50 bot / 25 phòng trong Docker; phần prediction của #2 chưa làm |
+| 10 | S8 kết thúc trận, MATCH_END | `feature/s8-match-end` | 07/11 | [vai-1/10](vai-1-server/10-s8-ket-thuc-tran.md) | [x] 07/11 (`d068d37`), bảng `MatchResult` |
+| 11 | Hỗ trợ #3: server phần G5 (cảnh 6) | `feature/g5-server-lag-comp` | 08/11 (trưa) | [vai-1/09](vai-1-server/09-ho-tro-g3-g5.md) | **Cắt** 07/11 (không kịp; `lagComp` được lưu nhưng không dùng) |
+| 12 | `architecture.md` (bản đầu 04/11, bản cuối 08/11) | `docs/architecture` | 04/11 → 08/11 | [vai-1/06](vai-1-server/06-architecture.md) | [~] cập nhật tới 07/11; bản cuối 08/11 |
+| 13 | Chạy test số 1-5, 10 | (cùng `test/r4-test-evidence`) | 08/11 | [vai-3/07](vai-3-gameplay-demo/07-r4-test-evidence.md) | [x] test 1-3 (bot, kill, rác) và 4-6 (relay, mất gói, login) có bằng chứng 07/11, testing-guide Part 2 |
 
 ### 3.2 Vai #2 - Client netcode (Nguyễn Đức Anh)
 
 | # | Việc | Nhánh | Deadline | Chi tiết | Xong |
 | :-: | --- | --- | :-: | --- | :-: |
-| 1 | C1 shared simulation + unit test tất định | `feature/c1-shared-simulation` | 03/11 | [vai-2/01](vai-2-client-netcode/01-c1-shared-simulation.md) | [ ] |
-| 2 | C2 Unity: login, kết nối TCP, ghép trận | `feature/c2-unity-login` | 04/11 (login), 05/11 (vào trận) | [vai-2/02](vai-2-client-netcode/02-c2-unity-login.md) | [ ] |
-| 3 | C3 gửi INPUT qua UDP | `feature/c3-input-udp` | 05/11 | [vai-2/03](vai-2-client-netcode/03-c3-input-udp.md) | [ ] |
+| 1 | C1 shared simulation + unit test tất định | `feature/c1-shared-simulation` | 03/11 | [vai-2/01](vai-2-client-netcode/01-c1-shared-simulation.md) | [x] `c3145c5` |
+| 2 | C2 Unity: login, kết nối TCP, ghép trận | `feature/c2-unity-login` | 04/11 (login), 05/11 (vào trận) | [vai-2/02](vai-2-client-netcode/02-c2-unity-login.md) | [x] `b358b67` |
+| 3 | C3 gửi INPUT qua UDP | `feature/c3-input-udp` | 05/11 | [vai-2/03](vai-2-client-netcode/03-c3-input-udp.md) | [x] `47d5960` |
 | 4 | C4 client-side prediction | `feature/c4-prediction` | 06/11 | [vai-2/04](vai-2-client-netcode/04-c4-prediction.md) | [x] 06/11, đã merge `main` (cùng C5) |
 | 5 | C5 server reconciliation | `feature/c5-reconciliation` | 06/11 | [vai-2/05](vai-2-client-netcode/05-c5-reconciliation.md) | [x] 06/11, đã merge `main` (`87b2bf4`) |
-| 6 | C6 entity interpolation | `feature/c6-interpolation` | 07/11 | [vai-2/06](vai-2-client-netcode/06-c6-interpolation.md) | [ ] |
-| 7 | R2 bot client (cùng #1) | `feature/r2-bot-client` | 07/11 | [vai-1/08](vai-1-server/08-r2-bot-client.md) | [ ] |
-| 8 | T4 đo đạc + test số 6, 8 | `feature/t4-metrics` | 08/11 | [vai-2/07](vai-2-client-netcode/07-t4-do-dac.md) | [ ] |
-| - | C7 smoothing, C8 HUD/camera | `feature/c7-smoothing`, `feature/c8-hud-camera` | **Cắt**, chỉ làm nếu C6 xong trước 07/11 trưa | [vai-2/08](vai-2-client-netcode/08-c7-c8-tuy-chon.md) | [ ] |
+| 6 | C6 entity interpolation | `feature/c6-interpolation` | 07/11 | [vai-2/06](vai-2-client-netcode/06-c6-interpolation.md) | [x] merge 07/11 (`6c760b5`) |
+| 7 | R2 bot client (cùng #1) | `feature/r2-bot-client` | 07/11 | [vai-1/08](vai-1-server/08-r2-bot-client.md) | [x] bot vào main (`36530ac`); phần prediction trong bot đã cắt |
+| 8 | T4 đo đạc + test số 6, 8 | `feature/t4-metrics` | 08/11 | [vai-2/07](vai-2-client-netcode/07-t4-do-dac.md) | **Cắt** 07/11 (T4 không kịp; mất gói được kiểm bằng test tích hợp) |
+| - | C7 smoothing, C8 HUD/camera | `feature/c7-smoothing`, `feature/c8-hud-camera` | **Cắt**, chỉ làm nếu C6 xong trước 07/11 trưa | [vai-2/08](vai-2-client-netcode/08-c7-c8-tuy-chon.md) | **Cắt** |
 
 ### 3.3 Vai #3 - Gameplay, lag compensation, demo & test (Phạm Quang Anh)
 
 | # | Việc | Nhánh | Deadline | Chi tiết | Xong |
 | :-: | --- | --- | :-: | --- | :-: |
-| 1 | G7 bộ mô phỏng mạng | `feature/g7-network-simulator` | 03/11 | [vai-3/01](vai-3-gameplay-demo/01-g7-network-simulator.md) | [ ] |
-| 2 | G1 scene siêu thị offline | `feature/g1-supermarket-scene` | 04/11 | [vai-3/02](vai-3-gameplay-demo/02-g1-supermarket-scene.md) | [ ] |
-| 3 | G2 khách hàng, đơn 3 món | `feature/g2-customers-orders` | 05/11 | [vai-3/03](vai-3-gameplay-demo/03-g2-khach-hang-don-hang.md) | [ ] |
-| 4 | G3 nhặt/thả/giao (phần Unity) | `feature/g3-pickup-deliver` | 06/11 | [vai-3/04](vai-3-gameplay-demo/04-g3-nhat-tha-giao.md) | [ ] |
+| 1 | G7 bộ mô phỏng mạng | `feature/g7-network-simulator` | 03/11 | [vai-3/01](vai-3-gameplay-demo/01-g7-network-simulator.md) | [x] `6841b96` |
+| 2 | G1 scene siêu thị offline | `feature/g1-supermarket-scene` | 04/11 | [vai-3/02](vai-3-gameplay-demo/02-g1-supermarket-scene.md) | [x] `44008d5` |
+| 3 | G2 khách hàng, đơn 3 món | `feature/g2-customers-orders` | 05/11 | [vai-3/03](vai-3-gameplay-demo/03-g2-khach-hang-don-hang.md) | [x] `56f62fa` |
+| 4 | G3 nhặt/thả/giao (phần Unity) | `feature/g3-pickup-deliver` | 06/11 | [vai-3/04](vai-3-gameplay-demo/04-g3-nhat-tha-giao.md) | [x] `33ca0ff` |
 | 5 | R4 viết kịch bản test | `test/r4-test-evidence` | 06/11 | [vai-3/07](vai-3-gameplay-demo/07-r4-test-evidence.md) | [ ] |
-| 6 | G8 Network Panel, preset 1-5, overlay | `feature/g8-network-panel` | 07/11 | [vai-3/05](vai-3-gameplay-demo/05-g8-network-panel.md) | [ ] |
-| 7 | G4 đồ hiếm + G5 lag compensation (phần Unity), preset 6 | `feature/g4-g5-rare-items-lag-comp` | 08/11 (trưa) | [vai-3/06](vai-3-gameplay-demo/06-g4-g5-do-hiem-lag-comp.md) | [ ] |
-| 8 | R4 chạy test + bằng chứng → `testing-guide.md` | `test/r4-test-evidence` | 08/11 | [vai-3/07](vai-3-gameplay-demo/07-r4-test-evidence.md) | [ ] |
-| 9 | T3 demo script + README §3-§6 | `docs/readme-final` | 08/11 | [vai-3/08](vai-3-gameplay-demo/08-t3-demo-script-readme.md) | [ ] |
-| - | G6 rollback | `feature/g6-rollback` | **Cắt**, chỉ làm nếu cảnh 6 xong trước 08/11 trưa | [vai-3/09](vai-3-gameplay-demo/09-g6-rollback-tuy-chon.md) | [ ] |
+| 6 | G8 Network Panel, preset 1-5, overlay | `feature/g8-network-panel` | 07/11 | [vai-3/05](vai-3-gameplay-demo/05-g8-network-panel.md) | [x] `4164620` (phần gửi `DEMO_CONFIG`/`POS_REPORT` và phím cheat đã cắt 07/11) |
+| 7 | G4 đồ hiếm + G5 lag compensation (phần Unity), preset 6 | `feature/g4-g5-rare-items-lag-comp` | 08/11 (trưa) | [vai-3/06](vai-3-gameplay-demo/06-g4-g5-do-hiem-lag-comp.md) | **Cắt** 07/11 (cảnh 6 bỏ) |
+| 8 | R4 chạy test + bằng chứng → `testing-guide.md` | `test/r4-test-evidence` | 08/11 | [vai-3/07](vai-3-gameplay-demo/07-r4-test-evidence.md) | [x] Part 2 điền 07/11 bởi #1 (test 1-6) |
+| 9 | T3 demo script + README §3-§6 | `docs/readme-final` | 08/11 | [vai-3/08](vai-3-gameplay-demo/08-t3-demo-script-readme.md) | [x] README §3, §6 điền 07/11 (`987664d`); demo script: cảnh 2-5 trên 1 máy |
+| - | G6 rollback | `feature/g6-rollback` | **Cắt**, chỉ làm nếu cảnh 6 xong trước 08/11 trưa | [vai-3/09](vai-3-gameplay-demo/09-g6-rollback-tuy-chon.md) | **Cắt** |
 
 ### 3.4 Việc chung
 
 | Việc | Làm chủ | Deadline | Chi tiết | Xong |
 | --- | --- | :-: | --- | :-: |
-| T2 slide, T5 Q&A | #1 ghép, mỗi người phần mình | 08/11 | [chung/04](chung/04-t2-t5-t6-thuyet-trinh.md) | [ ] |
-| T6 tổng duyệt thuyết trình, nộp db.ptit.edu.vn | #1 | 09/11 | [chung/04](chung/04-t2-t5-t6-thuyet-trinh.md) | [ ] |
-| AI Disclosure, Contribution, `ai-log.md`, kiểm tra clone sạch | Mỗi người tự điền, #1 kiểm tra | 09/11 | [chung/05](chung/05-m3-nop-bai.md) | [ ] |
+| T2 slide, T5 Q&A | #1 ghép, mỗi người phần mình | 08/11 | [chung/04](chung/04-t2-t5-t6-thuyet-trinh.md) | **Cắt** slide 07/11 (chỉ nộp tài liệu); Q| [ ] |A mỗi người tự chuẩn bị |
+| T6 tổng duyệt thuyết trình, nộp db.ptit.edu.vn | #1 | 09/11 | [chung/04](chung/04-t2-t5-t6-thuyet-trinh.md) | [ ] chỉ còn nộp db.ptit.edu.vn 09/11 (không tổng duyệt slide) |
+| AI Disclosure, Contribution, `ai-log.md`, kiểm tra clone sạch | Mỗi người tự điền, #1 kiểm tra | 09/11 | [chung/05](chung/05-m3-nop-bai.md) | [~] AI Disclosure §8.1-§8.2 và `ai-log.md` 1-22 có; Contribution và cột tự đánh giá do từng người điền |
 
 ---
 
@@ -155,6 +155,8 @@ S6 ──> C6 interpolation;  G7 + C5 ──> G8 Network Panel;  S4 + S5 + C1 �
 ---
 
 ## 6. Nếu trễ thì cắt gì
+
+0. **Đã chốt cắt ngày 07/11** (trưởng nhóm): G4/G5 + cảnh 6, G6, C7/C8, T4, test 2 máy LAN, phần Unity cảnh demo 1-2, slide. Chỉ nộp tài liệu + code; demo trên 1 máy (cảnh 2-5).
 
 1. **Đã cắt sẵn** (chỉ làm nếu dư): G6 rollback, C7 smoothing, C8 HUD/camera cầu kỳ, video dự phòng, reconnect.
 2. Nếu tối 07/11 chưa có cảnh 1-5: **bỏ cảnh 6** (G4/G5), trình bày lag compensation bằng slide; dồn 08/11 vào test chịu lỗi
