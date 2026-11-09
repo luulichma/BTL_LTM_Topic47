@@ -82,7 +82,7 @@ Chỉ có **7 ngày**, nên mỗi ngày là một mốc. Deadline là **cuối n
 | 9 | R2 bot client (cùng #2) | `feature/r2-bot-client` | 07/11 | [vai-1/08](vai-1-server/08-r2-bot-client.md) | [x] 07/11 (`36530ac`), 50 bot / 25 phòng trong Docker; phần prediction của #2 chưa làm |
 | 10 | S8 kết thúc trận, MATCH_END | `feature/s8-match-end` | 07/11 | [vai-1/10](vai-1-server/10-s8-ket-thuc-tran.md) | [x] 07/11 (`d068d37`), bảng `MatchResult` |
 | 11 | Hỗ trợ #3: server phần G5 (cảnh 6) | `feature/g5-server-lag-comp` | 08/11 (trưa) | [vai-1/09](vai-1-server/09-ho-tro-g3-g5.md) | [x] 07/11 (`c6e66c0`, merge `8d1efc2`): món hiếm + phân xử lag comp, test 7 (testing-guide §2.0e) |
-| 12 | `architecture.md` (bản đầu 04/11, bản cuối 08/11) | `docs/architecture` | 04/11 → 08/11 | [vai-1/06](vai-1-server/06-architecture.md) | [~] cập nhật tới 07/11; bản cuối 08/11 |
+| 12 | `architecture.md` (bản đầu 04/11, bản cuối 08/11) | `docs/architecture` | 04/11 → 08/11 | [vai-1/06](vai-1-server/06-architecture.md) | [x] bản cuối 08/11 (nhánh `docs/final-08-11`): thêm G5, G6, G8, sửa G7 |
 | 13 | Chạy test số 1-5, 10 | (cùng `test/r4-test-evidence`) | 08/11 | [vai-3/07](vai-3-gameplay-demo/07-r4-test-evidence.md) | [x] test 1-3 (bot, kill, rác) và 4-6 (relay, mất gói, login) có bằng chứng 07/11, testing-guide Part 2 |
 
 ### 3.2 Vai #2 - Client netcode (Nguyễn Đức Anh)
@@ -95,9 +95,9 @@ Chỉ có **7 ngày**, nên mỗi ngày là một mốc. Deadline là **cuối n
 | 4 | C4 client-side prediction | `feature/c4-prediction` | 06/11 | [vai-2/04](vai-2-client-netcode/04-c4-prediction.md) | [x] 06/11, đã merge `main` (cùng C5) |
 | 5 | C5 server reconciliation | `feature/c5-reconciliation` | 06/11 | [vai-2/05](vai-2-client-netcode/05-c5-reconciliation.md) | [x] 06/11, đã merge `main` (`87b2bf4`) |
 | 6 | C6 entity interpolation | `feature/c6-interpolation` | 07/11 | [vai-2/06](vai-2-client-netcode/06-c6-interpolation.md) | [x] merge 07/11 (`6c760b5`) |
-| 7 | R2 bot client (cùng #1) | `feature/r2-bot-client` | 07/11 | [vai-1/08](vai-1-server/08-r2-bot-client.md) | [~] bot vào main (`36530ac`); phần prediction trong bot của #2 chưa làm |
-| 8 | T4 đo đạc + test số 6, 8 | `feature/t4-metrics` | 08/11 | [vai-2/07](vai-2-client-netcode/07-t4-do-dac.md) | [ ] |
-| - | C7 smoothing, C8 HUD/camera | `feature/c7-smoothing`, `feature/c8-hud-camera` | 08/11 (07/11: chuyển từ tùy chọn sang phải làm) | [vai-2/08](vai-2-client-netcode/08-c7-c8-tuy-chon.md) | [ ] |
+| 7 | R2 bot client (cùng #1) | `feature/r2-bot-client` | 07/11 | [vai-1/08](vai-1-server/08-r2-bot-client.md) | [x] bot vào main (`36530ac`); phần prediction trong bot **cắt 08/11** (đóng băng tính năng) |
+| 8 | T4 đo đạc + test số 6, 8 | `feature/t4-metrics` | 08/11 | [vai-2/07](vai-2-client-netcode/07-t4-do-dac.md) | [ ] chạy trên Unity theo bảng testing-guide §2.0g (đo bằng Network Panel, không thêm code) |
+| - | C7 smoothing, C8 HUD/camera | `feature/c7-smoothing`, `feature/c8-hud-camera` | 08/11 (07/11: chuyển từ tùy chọn sang phải làm) | [vai-2/08](vai-2-client-netcode/08-c7-c8-tuy-chon.md) | [x] 07/11 (`44c9ff4`, merge `358faae`); 5 unit test C7 (test 9) |
 
 ### 3.3 Vai #3 - Gameplay, lag compensation, demo & test (Phạm Quang Anh)
 
@@ -107,12 +107,12 @@ Chỉ có **7 ngày**, nên mỗi ngày là một mốc. Deadline là **cuối n
 | 2 | G1 scene siêu thị offline | `feature/g1-supermarket-scene` | 04/11 | [vai-3/02](vai-3-gameplay-demo/02-g1-supermarket-scene.md) | [x] `44008d5` |
 | 3 | G2 khách hàng, đơn 3 món | `feature/g2-customers-orders` | 05/11 | [vai-3/03](vai-3-gameplay-demo/03-g2-khach-hang-don-hang.md) | [x] `56f62fa` |
 | 4 | G3 nhặt/thả/giao (phần Unity) | `feature/g3-pickup-deliver` | 06/11 | [vai-3/04](vai-3-gameplay-demo/04-g3-nhat-tha-giao.md) | [x] `33ca0ff` |
-| 5 | R4 viết kịch bản test | `test/r4-test-evidence` | 06/11 | [vai-3/07](vai-3-gameplay-demo/07-r4-test-evidence.md) | [ ] |
-| 6 | G8 Network Panel, preset 1-5, overlay | `feature/g8-network-panel` | 07/11 | [vai-3/05](vai-3-gameplay-demo/05-g8-network-panel.md) | [~] `4164620`; chưa gửi `DEMO_CONFIG`/`POS_REPORT`, phím cheat, preset 1/5/6 |
-| 7 | G4 đồ hiếm + G5 lag compensation (phần Unity), preset 6 | `feature/g4-g5-rare-items-lag-comp` | 08/11 (trưa) | [vai-3/06](vai-3-gameplay-demo/06-g4-g5-do-hiem-lag-comp.md) | [ ] phần Unity; server xong 07/11 (`c6e66c0`, luật ở protocol-design §4.6) |
+| 5 | R4 viết kịch bản test | `test/r4-test-evidence` | 06/11 | [vai-3/07](vai-3-gameplay-demo/07-r4-test-evidence.md) | [x] kịch bản test 1-9 trong testing-guide Part 2; thủ tục Unity ở §2.0g |
+| 6 | G8 Network Panel, preset 1-5, overlay | `feature/g8-network-panel` | 07/11 | [vai-3/05](vai-3-gameplay-demo/05-g8-network-panel.md) | [x] 07/11 (`84f0846`, merge `e24919a`): preset 1-6 gửi `DEMO_CONFIG`, nút cheat `POS_REPORT`; bằng chứng Unity cảnh 1-2 còn chạy theo §2.0g |
+| 7 | G4 đồ hiếm + G5 lag compensation (phần Unity), preset 6 | `feature/g4-g5-rare-items-lag-comp` | 08/11 (trưa) | [vai-3/06](vai-3-gameplay-demo/06-g4-g5-do-hiem-lag-comp.md) | [x] Unity 07/11 (`84f0846`, `b1c980f`); server `c6e66c0`; bằng chứng Unity cảnh 6 còn chạy theo §2.0g |
 | 8 | R4 chạy test + bằng chứng → `testing-guide.md` | `test/r4-test-evidence` | 08/11 | [vai-3/07](vai-3-gameplay-demo/07-r4-test-evidence.md) | [x] Part 2 điền 07/11 bởi #1 (test 1-6) |
-| 9 | T3 demo script + README §3-§6 | `docs/readme-final` | 08/11 | [vai-3/08](vai-3-gameplay-demo/08-t3-demo-script-readme.md) | [~] README §3, §6 có (#1 viết 07/11, #3 duyệt); demo script chưa |
-| - | G6 rollback | `feature/g6-rollback` | 08/11 (07/11: chuyển từ tùy chọn sang phải làm) | [vai-3/09](vai-3-gameplay-demo/09-g6-rollback-tuy-chon.md) | [ ] |
+| 9 | T3 demo script + README §3-§6 | `docs/readme-final` | 08/11 | [vai-3/08](vai-3-gameplay-demo/08-t3-demo-script-readme.md) | [x] README §3, §6 cập nhật 08/11; demo script ở `demo/demo-script.md` (repo này, không nộp) |
+| - | G6 rollback | `feature/g6-rollback` | 08/11 (07/11: chuyển từ tùy chọn sang phải làm) | [vai-3/09](vai-3-gameplay-demo/09-g6-rollback-tuy-chon.md) | [x] 07/11 (`b1c980f`, merge `b8e573a`); 5 unit test (test 8) |
 
 ### 3.4 Việc chung
 
@@ -155,6 +155,10 @@ S6 ──> C6 interpolation;  G7 + C5 ──> G8 Network Panel;  S4 + S5 + C1 �
 ---
 
 ## 6. Nếu trễ thì cắt gì
+
+0. **Cập nhật 08/11**: đóng băng tính năng. Mọi tính năng đã vào `main` (`98ff410`); cắt phần prediction trong bot R2.
+   Còn lại chỉ là bằng chứng Unity (testing-guide §2.0g), Contribution, tag `m3`, nộp. Test LAN 2 máy đã làm (#1).
+   Toàn bộ test .NET 08/11 06:43 trên `98ff410`: 196/196 passed.
 
 0. **Cập nhật 07/11** (trưởng nhóm): chỉ bỏ slide (nộp tài liệu + code). Các phần khác vẫn làm; phần server G4/G5 đã xong.
 
